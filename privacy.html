@@ -302,14 +302,26 @@
             <tr>
               <td>debugger</td>
               <td>
-                Used exclusively to dispatch synthetic mouse click events (mousePressed / mouseReleased via Chrome DevTools Protocol) on AI platform UI buttons that block standard programmatic DOM clicks. Modern AI platforms built with React/Vue intercept <code>element.click()</code> calls, making this the only reliable method to interact with their UI.<br><br>
-                <strong>Scope is strictly limited:</strong>
+                <strong>Purpose:</strong> Used exclusively to dispatch synthetic mouse input events on AI platform UI buttons that block standard programmatic DOM clicks.<br><br>
+                <strong>Technical reason:</strong> Modern AI platforms (Google Flow, Grok, Dreamina, Meta AI) are built with React/Vue and intercept <code>element.click()</code> and <code>dispatchEvent()</code> calls, making them ineffective for UI interaction. The only reliable method is to use the Chrome DevTools Protocol (CDP) <code>Input.dispatchMouseEvent</code> command, which requires the <code>debugger</code> permission.<br><br>
+                <strong>Exact CDP commands used:</strong>
                 <ul style="margin-top:6px">
-                  <li>Attached only to the active AI site tab</li>
-                  <li>Only when you initiate a workflow action</li>
-                  <li>Detached immediately after the click event is dispatched</li>
-                  <li>No page content, DOM data, network traffic, screenshots, credentials, or any user information is read, recorded, or transmitted through this permission</li>
+                  <li><code>Input.dispatchMouseEvent</code> — type: <code>mouseMoved</code></li>
+                  <li><code>Input.dispatchMouseEvent</code> — type: <code>mousePressed</code></li>
+                  <li><code>Input.dispatchMouseEvent</code> — type: <code>mouseReleased</code></li>
                 </ul>
+                <br>
+                <strong>Strict scope — what the debugger does NOT do:</strong>
+                <ul style="margin-top:6px">
+                  <li>Does not monitor network requests or responses</li>
+                  <li>Does not read, capture, or extract any page content or DOM data</li>
+                  <li>Does not intercept or inspect HTTP traffic</li>
+                  <li>Does not take screenshots or record the screen</li>
+                  <li>Does not access cookies, session tokens, or credentials</li>
+                  <li>Does not transmit any data to external servers</li>
+                </ul>
+                <br>
+                <strong>Lifecycle:</strong> The debugger is attached to the active AI site tab only when you initiate a workflow action, used only to send the three mouse events above, and detached immediately after. No browsing history or unrelated website data is collected or transmitted.
               </td>
             </tr>
           </tbody>
