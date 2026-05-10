@@ -1,0 +1,1443 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Guide – CreatorFlow</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #1a1a1a;
+      color: #e8eaed;
+      font-size: 14px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── Top Bar ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #1f2023;
+      border-bottom: 1px solid #3c4043;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-btn {
+      background: none;
+      border: 1px solid #5f6368;
+      color: #8ab4f8;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .back-btn:hover { background: #2d2e31; }
+
+    .topbar-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #e8eaed;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── Search ── */
+    .search-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .search-input {
+      background: #2d2e31;
+      border: 1px solid #5f6368;
+      color: #e8eaed;
+      padding: 5px 10px 5px 30px;
+      border-radius: 6px;
+      font-size: 13px;
+      width: 160px;
+      outline: none;
+      transition: border-color 0.2s, width 0.2s;
+    }
+    .search-input:focus { border-color: #8ab4f8; width: 200px; }
+    .search-input::placeholder { color: #5f6368; }
+    .search-icon {
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #5f6368;
+      font-size: 13px;
+      pointer-events: none;
+    }
+    .search-clear {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #5f6368;
+      font-size: 13px;
+      cursor: pointer;
+      display: none;
+    }
+    .search-clear:hover { color: #8ab4f8; }
+
+    /* ── Tab Nav ── */
+    .tab-nav {
+      display: flex;
+      background: #1f2023;
+      border-bottom: 1px solid #3c4043;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tab-nav::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      color: #9aa0a6;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tab-btn:hover { color: #e8eaed; background: #2d2e31; }
+    .tab-btn.active { color: #8ab4f8; border-bottom-color: #8ab4f8; }
+
+    .tab-icon { font-size: 15px; }
+
+    /* ── Tab Content ── */
+    .tab-content { display: none; padding: 20px 16px 48px; }
+    .tab-content.active { display: block; }
+
+    /* ── Search highlight ── */
+    .search-active .tab-content { display: block !important; }
+    mark { background: #f6c90e33; color: #f6c90e; border-radius: 2px; padding: 0 1px; }
+
+    /* ── Section / Accordion ── */
+    .section {
+      margin-bottom: 6px;
+      border: 1px solid #3c4043;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 14px;
+      cursor: pointer;
+      background: #242527;
+      user-select: none;
+      transition: background 0.15s;
+    }
+    .section-header:hover { background: #2d2e31; }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #8ab4f8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title .s-icon { font-size: 15px; }
+
+    .chevron {
+      color: #5f6368;
+      font-size: 12px;
+      transition: transform 0.2s;
+    }
+    .section.open .chevron { transform: rotate(180deg); }
+
+    .section-body {
+      display: none;
+      padding: 14px;
+      background: #1e1f21;
+      border-top: 1px solid #3c4043;
+    }
+    .section.open .section-body { display: block; }
+
+    /* ── Typography inside sections ── */
+    .section-body p { color: #bdc1c6; margin-bottom: 10px; }
+    .section-body p:last-child { margin-bottom: 0; }
+
+    .section-body h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: #e8eaed;
+      margin: 14px 0 6px;
+    }
+    .section-body h3:first-child { margin-top: 0; }
+
+    .section-body ul, .section-body ol {
+      padding-left: 18px;
+      color: #bdc1c6;
+      margin-bottom: 10px;
+    }
+    .section-body li { margin-bottom: 4px; }
+    .section-body li:last-child { margin-bottom: 0; }
+
+    a { color: #8ab4f8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    code {
+      background: #2d2e31;
+      color: #81c995;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: "Consolas", "Courier New", monospace;
+    }
+
+    /* ── Callout boxes ── */
+    .callout {
+      border-left: 3px solid #8ab4f8;
+      background: #2d2e31;
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      margin: 10px 0;
+      color: #e8eaed;
+      font-size: 13px;
+    }
+    .callout.tip { border-color: #81c995; }
+    .callout.warn { border-color: #fdd663; }
+    .callout.danger { border-color: #f28b82; }
+    .callout-label {
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .callout.tip .callout-label { color: #81c995; }
+    .callout.warn .callout-label { color: #fdd663; }
+    .callout.danger .callout-label { color: #f28b82; }
+    .callout p { color: #bdc1c6; margin: 0; }
+
+    /* ── Mode cards ── */
+    .mode-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 8px;
+      margin: 10px 0;
+    }
+    .mode-card {
+      background: #2d2e31;
+      border: 1px solid #3c4043;
+      border-radius: 8px;
+      padding: 12px;
+    }
+    .mode-card-num {
+      font-size: 10px;
+      font-weight: 700;
+      color: #8ab4f8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .mode-card-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #e8eaed;
+      margin-bottom: 6px;
+    }
+    .mode-card p { font-size: 12px; color: #9aa0a6; margin: 0; }
+
+    /* ── Steps ── */
+    .steps { counter-reset: step; margin: 10px 0; }
+    .step {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+      align-items: flex-start;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      background: #8ab4f8;
+      color: #1a1a1a;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .step-body { color: #bdc1c6; font-size: 13px; flex: 1; }
+    .step-body strong { color: #e8eaed; }
+
+    /* ── Settings Table ── */
+    .settings-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin: 10px 0;
+    }
+    .settings-table th {
+      background: #2d2e31;
+      color: #8ab4f8;
+      text-align: left;
+      padding: 8px 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      font-size: 11px;
+      border-bottom: 1px solid #3c4043;
+    }
+    .settings-table td {
+      padding: 7px 10px;
+      color: #bdc1c6;
+      border-bottom: 1px solid #2d2e31;
+      vertical-align: top;
+    }
+    .settings-table tr:last-child td { border-bottom: none; }
+    .settings-table tr:hover td { background: #242527; }
+    .settings-table td:first-child { color: #e8eaed; font-weight: 500; white-space: nowrap; }
+    .settings-table td:last-child { color: #9aa0a6; font-size: 11px; }
+
+    /* ── Troubleshoot items ── */
+    .trouble-item {
+      background: #242527;
+      border: 1px solid #3c4043;
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+    }
+    .trouble-q {
+      font-weight: 600;
+      color: #fdd663;
+      font-size: 13px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .trouble-a { color: #bdc1c6; font-size: 13px; }
+
+    /* ── Badge ── */
+    .badge {
+      display: inline-block;
+      background: #8ab4f833;
+      color: #8ab4f8;
+      border: 1px solid #8ab4f855;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 11px;
+      font-weight: 600;
+      vertical-align: middle;
+    }
+    .badge.green { background: #81c99533; color: #81c995; border-color: #81c99555; }
+    .badge.yellow { background: #fdd66333; color: #fdd663; border-color: #fdd66355; }
+
+    /* ── Tab intro banner ── */
+    .tab-banner {
+      background: linear-gradient(135deg, #2d2e31 0%, #242527 100%);
+      border: 1px solid #3c4043;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .tab-banner-icon { font-size: 32px; flex-shrink: 0; }
+    .tab-banner-title { font-size: 16px; font-weight: 700; color: #e8eaed; margin-bottom: 2px; }
+    .tab-banner-sub { font-size: 12px; color: #9aa0a6; }
+    .tab-banner-sub a { color: #8ab4f8; }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 24px;
+      padding: 14px;
+      background: #242527;
+      border: 1px solid #3c4043;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #9aa0a6;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer a { color: #8ab4f8; }
+
+    /* ── No results ── */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+      color: #5f6368;
+    }
+    .no-results.visible { display: block; }
+    .no-results-icon { font-size: 36px; margin-bottom: 10px; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #1a1a1a; }
+    ::-webkit-scrollbar-thumb { background: #3c4043; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #5f6368; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <button class="back-btn" onclick="window.history.back()">← Back</button>
+    <span class="topbar-title">User Guide</span>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" id="searchInput" type="text" placeholder="Search guide…" oninput="handleSearch(this.value)" />
+      <span class="search-clear" id="searchClear" onclick="clearSearch()">✕</span>
+    </div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="tab-nav" id="tabNav">
+    <button class="tab-btn active" data-tab="veo" onclick="switchTab('veo')">
+      <span class="tab-icon">🎬</span> VEO (Google Flow)
+    </button>
+    <button class="tab-btn" data-tab="grok" onclick="switchTab('grok')">
+      <span class="tab-icon">⚡</span> Grok
+    </button>
+    <button class="tab-btn" data-tab="seedance" onclick="switchTab('seedance')">
+      <span class="tab-icon">🌱</span> Seedance
+    </button>
+    <button class="tab-btn" data-tab="meta" onclick="switchTab('meta')">
+      <span class="tab-icon">🔵</span> Meta AI
+    </button>
+  </div>
+
+  <!-- No results -->
+  <div class="no-results" id="noResults">
+    <div class="no-results-icon">🔍</div>
+    <div>No results found</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       TAB 1 — VEO (Google Flow)
+  ════════════════════════════════════════════════════════════ -->
+  <div class="tab-content active" id="tab-veo">
+
+    <div class="tab-banner">
+      <div class="tab-banner-icon">🎬</div>
+      <div>
+        <div class="tab-banner-title">VEO – Google Flow</div>
+        <div class="tab-banner-sub">
+          Site: <a href="https://labs.google/fx/tools/flow" target="_blank">labs.google/fx/tools/flow</a>
+          &nbsp;·&nbsp; 5 Modes &nbsp;·&nbsp; <span class="badge">Veo 3.1 Fast</span> <span class="badge">Veo 2</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Getting Started -->
+    <div class="section open">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">🚀</span> Getting Started</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-body">Open <a href="https://labs.google/fx/tools/flow" target="_blank">labs.google/fx/tools/flow</a> and navigate to a <strong>Flow project page</strong>.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-body">Click the extension icon in Chrome's toolbar and <strong>pin it</strong> for easy access.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-body">Open the <strong>Control tab</strong> in the side panel and select your desired mode.</div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-body">Configure settings in the <strong>Settings tab</strong> before your first run.</div></div>
+        </div>
+        <div class="callout warn">
+          <div class="callout-label">⚠ Important</div>
+          <p>The extension only works when you are on a <strong>Flow project page</strong>. If the panel shows "not active", navigate to a project and refresh.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modes Overview -->
+    <div class="section open">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">🎛️</span> Modes Overview</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="mode-grid">
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 1</div>
+            <div class="mode-card-title">Text-to-Video</div>
+            <p>Generate videos from text prompts. Separate prompts with blank lines.</p>
+          </div>
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 2</div>
+            <div class="mode-card-title">Image-to-Video</div>
+            <p>Animate uploaded images with text prompts. 1–2 images per prompt.</p>
+          </div>
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 3</div>
+            <div class="mode-card-title">Components-to-Video</div>
+            <p>Use character/component images with auto filename matching. Up to 3 images per prompt.</p>
+          </div>
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 4</div>
+            <div class="mode-card-title">Text-to-Image</div>
+            <p>Generate images from descriptions. Supports 4K/2K/1K download.</p>
+          </div>
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 5</div>
+            <div class="mode-card-title">Image-to-Image</div>
+            <p>Transform source images with prompts. Auto filename matching. Up to 10 images per prompt.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mode Details -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">📋</span> Mode Details</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+
+        <h3>Mode 1 — Text-to-Video</h3>
+        <ul>
+          <li>Enter prompts in the text area, separated by <strong>blank lines</strong>, or upload a <code>.txt</code> file.</li>
+          <li>Configure duration: <code>8s</code> or <code>Concat</code>.</li>
+          <li>Click <strong>Run</strong> to start batch generation.</li>
+        </ul>
+
+        <h3>Mode 2 — Image-to-Video</h3>
+        <ul>
+          <li>Upload images (supports multiple at once via file picker or drag-drop).</li>
+          <li>Enter one prompt per image (or per image pair).</li>
+          <li>Sort images by name or date, or reorder via drag-and-drop.</li>
+          <li>Configure 1–2 images per prompt in Settings.</li>
+        </ul>
+
+        <h3>Mode 3 — Components-to-Video</h3>
+        <ul>
+          <li>Upload component or character images.</li>
+          <li>Enter prompts describing the scene.</li>
+          <li>Enable <strong>"Auto-add character images"</strong> — the tool matches images to prompts by filename. For example, <code>dog.png</code> and <code>cat.png</code> are automatically attached when the prompt mentions "dog" and "cat".</li>
+          <li>Up to <strong>3 images</strong> per prompt.</li>
+        </ul>
+        <div class="callout tip">
+          <div class="callout-label">💡 Tip</div>
+          <p>Name your images clearly and descriptively (e.g. <code>hero.png</code>, <code>dragon.jpg</code>) so auto-matching works reliably.</p>
+        </div>
+
+        <h3>Mode 4 — Text-to-Image</h3>
+        <ul>
+          <li>Enter image descriptions, one per blank-line-separated block.</li>
+          <li>Configure aspect ratio and image model in Settings.</li>
+          <li>Supports <strong>4K / 2K / 1K</strong> auto-download.</li>
+        </ul>
+
+        <h3>Mode 5 — Image-to-Image</h3>
+        <ul>
+          <li>Upload source images and enter transformation prompts.</li>
+          <li>Enable <strong>"Auto-add character images"</strong> for filename-based matching.</li>
+          <li>Up to <strong>10 images</strong> per prompt.</li>
+          <li>Supports <strong>4K / 2K / 1K</strong> auto-download.</li>
+        </ul>
+
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">⚙️</span> Settings Reference</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <table class="settings-table">
+          <thead><tr><th>Setting</th><th>Options</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Default Mode</td><td>Mode 1–5</td><td>Mode loaded on panel open</td></tr>
+            <tr><td>Default Aspect Ratio</td><td>16:9 · 9:16 · 1:1</td><td>For image generation modes</td></tr>
+            <tr><td>Outputs per Prompt</td><td>1 – 4</td><td>Videos or images generated per prompt</td></tr>
+            <tr><td>Concurrent Prompts</td><td>1 – 6</td><td>How many prompts run in parallel</td></tr>
+            <tr><td>Prompt Delay</td><td>0 – 300 s</td><td>Wait between prompt submissions</td></tr>
+            <tr><td>Video Model</td><td>Veo 3.1 Fast · Veo 2</td><td>Quality vs. speed tradeoff</td></tr>
+            <tr><td>Image Model</td><td>Various</td><td>Model used for image generation</td></tr>
+            <tr><td>Auto Download Video</td><td>720p · 1080p · No Download</td><td>Automatic save after generation</td></tr>
+            <tr><td>Auto Download Image</td><td>1K · 2K · 4K · No Download</td><td>Automatic save after generation</td></tr>
+            <tr><td>Max Retries</td><td>1 – 20</td><td>Retries on generation failure</td></tr>
+            <tr><td>Default Video Frame</td><td>8s · Concat</td><td>Duration per video clip</td></tr>
+            <tr><td>Language</td><td>English · Vietnamese · Chinese</td><td>UI language</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tips -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">💡</span> Tips & Best Practices</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>Use <strong>English prompts</strong> for best generation quality.</li>
+          <li>Separate prompts with a <strong>blank line</strong> — each block is one prompt.</li>
+          <li>Set <strong>~3 concurrent prompts</strong> when Flow is stable; drop to 2 during peak hours.</li>
+          <li>Set a <strong>~30 s delay</strong> between prompts to avoid rate limiting.</li>
+          <li>Name images clearly for auto-matching: <code>dog.png</code>, <code>hero.jpg</code>, etc. Supported formats: PNG, JPG, GIF (under 10 MB).</li>
+          <li>Lower concurrency = more stable runs with fewer errors.</li>
+          <li>Use <code>Concat</code> duration to chain multiple clips into one long video.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Troubleshooting -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">🔧</span> Troubleshooting</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Extension not working / panel shows "not active"</div>
+          <div class="trouble-a">You must be on a <strong>Flow project page</strong> at labs.google/fx/tools/flow. Navigate to a project and refresh the page.</div>
+        </div>
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Cannot create video</div>
+          <div class="trouble-a">The tool auto-retries every 30 s. This is normal — just wait and don't close the panel.</div>
+        </div>
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Videos not downloading automatically</div>
+          <div class="trouble-a">Go to <strong>Chrome Settings → Downloads</strong> and turn <strong>OFF</strong> "Ask where to save each file before downloading".</div>
+        </div>
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Policy Error on a prompt</div>
+          <div class="trouble-a">The prompt or image violates Google's content policy. The tool automatically skips that prompt and continues with the rest.</div>
+        </div>
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Screen zoomed out unexpectedly</div>
+          <div class="trouble-a">This is an automatic feature of the extension. Do <strong>not</strong> manually adjust zoom while a run is in progress.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>🔒 All processing is local — no data leaves your device.</span>
+      <span>✉ <a href="mailto:nguyendinhdungqd@gmail.com">nguyendinhdungqd@gmail.com</a> · Author: Trường Nguyễn</span>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       TAB 2 — GROK
+  ════════════════════════════════════════════════════════════ -->
+  <div class="tab-content" id="tab-grok">
+
+    <div class="tab-banner">
+      <div class="tab-banner-icon">⚡</div>
+      <div>
+        <div class="tab-banner-title">Grok – xAI</div>
+        <div class="tab-banner-sub">
+          Site: <a href="https://grok.com/imagine" target="_blank">grok.com/imagine</a>
+          &nbsp;·&nbsp; 5 Modes &nbsp;·&nbsp; <span class="badge">Grok 3.1 Fast</span> <span class="badge">Grok 2</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Getting Started -->
+    <div class="section open">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">🚀</span> Getting Started</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-body">Open <a href="https://grok.com/imagine" target="_blank">grok.com/imagine</a> and make sure you are <strong>logged in</strong> to Grok.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-body">Click the extension icon and <strong>pin it</strong> to the toolbar.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-body">In the <strong>Control tab</strong>, configure: Concurrent Prompts, Prompt Delay, Save Folder, and Auto Change File Name.</div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-body">Select your mode and click <strong>Run</strong>.</div></div>
+        </div>
+        <div class="callout warn">
+          <div class="callout-label">⚠ Important</div>
+          <p>The extension only activates on <strong>grok.com/imagine</strong>. If the panel shows "not active", navigate to that URL and refresh.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modes Overview -->
+    <div class="section open">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">🎛️</span> Modes Overview</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="mode-grid">
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 1</div>
+            <div class="mode-card-title">Text-to-Video</div>
+            <p>Generate videos from text prompts separated by blank lines.</p>
+          </div>
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 2</div>
+            <div class="mode-card-title">Frame-to-Video</div>
+            <p>Animate images as start frame, or start + end frame pair.</p>
+          </div>
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 3</div>
+            <div class="mode-card-title">Ingredients to Video</div>
+            <p>Character images auto-matched by filename. Up to 10 images per prompt.</p>
+          </div>
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 4</div>
+            <div class="mode-card-title">Text-to-Image</div>
+            <p>Generate images from descriptions with configurable aspect ratio.</p>
+          </div>
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 5</div>
+            <div class="mode-card-title">Image-to-Image</div>
+            <p>Transform source images with prompts. Auto filename matching.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mode Details -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">📋</span> Mode Details</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+
+        <h3>Mode 1 — Text-to-Video</h3>
+        <ul>
+          <li>Enter prompts separated by <strong>blank lines</strong>, or upload a <code>.txt</code> file.</li>
+          <li>Click <strong>Run</strong> to start batch generation.</li>
+        </ul>
+
+        <h3>Mode 2 — Frame-to-Video</h3>
+        <ul>
+          <li>Upload or drag-drop source images.</li>
+          <li>Enter prompts for each image.</li>
+          <li>In Settings → <strong>Image Processing Option</strong>: choose <em>Start frame only</em> or <em>Start + End frame</em>.</li>
+          <li>Make sure you have enough images for the number of prompts.</li>
+        </ul>
+
+        <h3>Mode 3 — Ingredients to Video</h3>
+        <ul>
+          <li>Upload component or character images.</li>
+          <li>Enter prompts describing the scene.</li>
+          <li>Enable <strong>"Auto-add character images"</strong> for automatic filename-based matching.</li>
+          <li>Settings → <strong>Max Input Images per Prompt</strong>: 1–10.</li>
+        </ul>
+        <div class="callout tip">
+          <div class="callout-label">💡 Tip</div>
+          <p>Name character images descriptively: <code>hero.png</code>, <code>villain.jpg</code>, <code>dragon.png</code>. The tool matches image filenames to words in your prompts.</p>
+        </div>
+
+        <h3>Mode 4 — Text-to-Image</h3>
+        <ul>
+          <li>Enter image descriptions, one per blank-line-separated block.</li>
+          <li>Configure <strong>Aspect Ratio</strong> and <strong>Image Model</strong> in Settings.</li>
+        </ul>
+
+        <h3>Mode 5 — Image-to-Image</h3>
+        <ul>
+          <li>Upload source images and enter transformation prompts.</li>
+          <li>Enable <strong>"Auto-add character images"</strong> for filename-based matching.</li>
+          <li>Settings → <strong>Max Input Images per Prompt</strong>: 1–10.</li>
+        </ul>
+
+        <h3>Video Chaining with Extend</h3>
+        <div class="callout tip">
+          <div class="callout-label">💡 Pro Tip</div>
+          <p>Use <strong>6s extend</strong> or <strong>10s extend</strong> as the video option for all prompts except the last one. This chains them into one continuous long video. Set the last prompt to a non-extend option.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">⚙️</span> Settings Reference</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <table class="settings-table">
+          <thead><tr><th>Setting</th><th>Options</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Default Mode</td><td>Mode 1–5</td><td>Mode loaded on panel open</td></tr>
+            <tr><td>Default Aspect Ratio</td><td>16:9 · 9:16 · 1:1 · 2:3 · 3:2</td><td>For image generation modes</td></tr>
+            <tr><td>Outputs per Prompt (Video)</td><td>1 – 4</td><td>Videos generated per prompt</td></tr>
+            <tr><td>Outputs per Prompt (Image)</td><td>1 – 50</td><td>Images generated per prompt</td></tr>
+            <tr><td>Concurrent Prompts</td><td>1 – 6</td><td>Parallel prompt submissions</td></tr>
+            <tr><td>Random Delay</td><td>Toggle + range</td><td>Adds randomness to avoid rate limits</td></tr>
+            <tr><td>Video Model</td><td>Grok 3.1 Fast · Grok 3.1 Quality · Grok 2</td><td>Quality vs. speed tradeoff</td></tr>
+            <tr><td>Image Model</td><td>Various</td><td>Model used for image generation</td></tr>
+            <tr><td>Default Video Option</td><td>6s · 10s Super Grok · 6s extend · 10s extend</td><td>Duration and chaining mode</td></tr>
+            <tr><td>Default Image Mode</td><td>New Image · Edit Image</td><td>Create new or edit existing</td></tr>
+            <tr><td>Image Processing Option</td><td>Start frame only · Start + End frame</td><td>For Frame-to-Video mode</td></tr>
+            <tr><td>Max Input Images per Prompt</td><td>1 – 10</td><td>For Ingredients/Image-to-Image modes</td></tr>
+            <tr><td>Max Retries</td><td>1 – 20</td><td>Retries on generation failure</td></tr>
+            <tr><td>Auto Download Video</td><td>No Download · 480p · 480p Upscale · 720p Super Grok</td><td>Automatic save after generation</td></tr>
+            <tr><td>Auto Download Image</td><td>No Download · 1K</td><td>Automatic save after generation</td></tr>
+            <tr><td>Language</td><td>EN · VI · ZH · KO · ES · JA</td><td>UI language</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tips -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">💡</span> Tips & Best Practices</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>Increase <strong>Random Delay</strong> if you hit rate limits frequently.</li>
+          <li>Start with <strong>1 concurrent prompt</strong> and increase slowly to find your stable limit.</li>
+          <li>Use <strong>6s extend / 10s extend</strong> to chain prompts into one long video — set the last prompt to a non-extend option.</li>
+          <li>Use the <strong>Quick Fix</strong> button if generation gets stuck.</li>
+          <li>Name character images descriptively for auto-matching: <code>hero.png</code>, <code>villain.jpg</code>.</li>
+          <li>For Frame-to-Video, ensure you have at least as many images as prompts.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Troubleshooting -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">🔧</span> Troubleshooting</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Extension not active</div>
+          <div class="trouble-a">Must be on <strong>grok.com/imagine</strong>. Navigate there and refresh the page.</div>
+        </div>
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Generation errors</div>
+          <div class="trouble-a">The tool auto-retries. Use the <strong>Fix Error</strong> button if it stays stuck.</div>
+        </div>
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Downloads not working</div>
+          <div class="trouble-a">Go to <strong>Chrome Settings → Downloads</strong> and turn <strong>OFF</strong> "Ask where to save each file before downloading".</div>
+        </div>
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Login required error</div>
+          <div class="trouble-a">You must be logged into <strong>Grok.com</strong> before using the extension.</div>
+        </div>
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Not enough images for Frame-to-Video</div>
+          <div class="trouble-a">Frame-to-Video requires at least one image per prompt. Upload enough images to match your prompt count.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>🔒 All processing is local — no data leaves your device.</span>
+      <span>✉ <a href="mailto:nguyendinhdungqd@gmail.com">nguyendinhdungqd@gmail.com</a> · Author: Trường Nguyễn</span>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       TAB 3 — SEEDANCE (Dreamina / Jimeng)
+  ════════════════════════════════════════════════════════════ -->
+  <div class="tab-content" id="tab-seedance">
+
+    <div class="tab-banner">
+      <div class="tab-banner-icon">🌱</div>
+      <div>
+        <div class="tab-banner-title">Seedance – Dreamina / Jimeng</div>
+        <div class="tab-banner-sub">
+          Sites: <a href="https://dreamina.capcut.com" target="_blank">dreamina.capcut.com</a>
+          &nbsp;·&nbsp; <a href="https://jimeng.jianying.com" target="_blank">jimeng.jianying.com</a>
+          &nbsp;·&nbsp; 5 Modes &nbsp;·&nbsp; <span class="badge green">Up to 2K 60FPS</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Getting Started -->
+    <div class="section open">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">🚀</span> Getting Started</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-body">Open <a href="https://dreamina.capcut.com" target="_blank">dreamina.capcut.com</a> (or jimeng.jianying.com) and <strong>log in</strong>.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-body">Click the extension icon and <strong>pin it</strong> to the toolbar.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-body">Open the <strong>Control tab</strong> and configure your settings.</div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-body">Select your mode and click <strong>Run</strong>.</div></div>
+        </div>
+        <div class="callout warn">
+          <div class="callout-label">⚠ Important</div>
+          <p>The extension only activates on <strong>dreamina.capcut.com</strong> or <strong>jimeng.jianying.com</strong>. If the panel shows "not active", navigate to one of those sites and refresh.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modes Overview -->
+    <div class="section open">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">🎛️</span> Modes Overview</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="mode-grid">
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 1</div>
+            <div class="mode-card-title">Text-to-Video</div>
+            <p>Generate videos from text prompts. Blank line separator.</p>
+          </div>
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 2</div>
+            <div class="mode-card-title">Frame-to-Video</div>
+            <p>Animate images as start frame or start + end frame pair.</p>
+          </div>
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 3</div>
+            <div class="mode-card-title">Ingredients to Video</div>
+            <p>Character images auto-matched by filename. Up to 10 images per prompt.</p>
+          </div>
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 4</div>
+            <div class="mode-card-title">Text-to-Image</div>
+            <p>Generate images from descriptions. Expanded aspect ratio options.</p>
+          </div>
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 5</div>
+            <div class="mode-card-title">Image-to-Image</div>
+            <p>Transform source images. Supports image chaining in Edit Image mode.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mode Details -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">📋</span> Mode Details</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+
+        <h3>Mode 1 — Text-to-Video</h3>
+        <ul>
+          <li>Enter prompts separated by <strong>blank lines</strong>, or upload a <code>.txt</code> file.</li>
+          <li>Configure duration: <strong>4s–15s</strong> or <strong>Concat</strong> variants.</li>
+          <li>Click <strong>Run</strong> to start batch generation.</li>
+        </ul>
+
+        <h3>Mode 2 — Frame-to-Video</h3>
+        <ul>
+          <li>Upload or drag-drop source images.</li>
+          <li>Enter prompts for each image.</li>
+          <li>Settings → <strong>Image Processing Option</strong>: <em>Start frame only</em> or <em>Start + End frame</em>.</li>
+        </ul>
+
+        <h3>Mode 3 — Ingredients to Video</h3>
+        <ul>
+          <li>Upload component or character images.</li>
+          <li>Enter prompts describing the scene.</li>
+          <li>Enable <strong>"Auto-add character images"</strong> for filename-based matching.</li>
+          <li>Settings → <strong>Max Input Images per Prompt</strong>: 1–10.</li>
+        </ul>
+
+        <h3>Mode 4 — Text-to-Image</h3>
+        <ul>
+          <li>Enter image descriptions, one per blank-line-separated block.</li>
+          <li>Configure <strong>Aspect Ratio</strong> (includes 4:3 and 3:4) and <strong>Image Model</strong> in Settings.</li>
+        </ul>
+
+        <h3>Mode 5 — Image-to-Image (with Image Chaining)</h3>
+        <ul>
+          <li>Upload source images and enter transformation prompts.</li>
+          <li>Enable <strong>"Auto-add character images"</strong> for filename-based matching.</li>
+          <li>Enable <strong>Edit Image mode</strong> to activate <strong>Image Chaining</strong>: each prompt's output image automatically becomes the input for the next prompt.</li>
+        </ul>
+        <div class="callout tip">
+          <div class="callout-label">💡 Image Chaining</div>
+          <p>Image Chaining is a Seedance-exclusive feature. Enable <strong>Edit Image mode</strong> in Settings to chain prompts — great for iterative style transformations or storytelling sequences.</p>
+        </div>
+
+        <h3>Video Chaining with Concat</h3>
+        <div class="callout tip">
+          <div class="callout-label">💡 Pro Tip</div>
+          <p>Use <strong>Concat</strong> duration to chain multiple video clips into one long video. Each prompt generates a clip that is appended to the previous one.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">⚙️</span> Settings Reference</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <table class="settings-table">
+          <thead><tr><th>Setting</th><th>Options</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Default Mode</td><td>Mode 1–5</td><td>Mode loaded on panel open</td></tr>
+            <tr><td>Default Aspect Ratio</td><td>16:9 · 9:16 · 1:1 · 4:3 · 3:4 · 2:3 · 3:2</td><td>Expanded vs. Grok</td></tr>
+            <tr><td>Outputs per Prompt (Video)</td><td>1 – 4</td><td>Videos generated per prompt</td></tr>
+            <tr><td>Outputs per Prompt (Image)</td><td>1 – 50</td><td>Images generated per prompt</td></tr>
+            <tr><td>Concurrent Prompts</td><td>1 – 6</td><td>Parallel prompt submissions</td></tr>
+            <tr><td>Random Delay</td><td>Toggle + range</td><td>Adds randomness to avoid rate limits</td></tr>
+            <tr><td>Video Model</td><td>Various Seedance models</td><td>Quality vs. speed tradeoff</td></tr>
+            <tr><td>Image Model</td><td>Various</td><td>Model used for image generation</td></tr>
+            <tr><td>Default Video Duration</td><td>4s · 5s · 8s · 10s · 15s · Concat variants</td><td>Duration per video clip</td></tr>
+            <tr><td>Default Image Mode</td><td>New Image · Edit Image</td><td>Edit Image enables image chaining</td></tr>
+            <tr><td>Image Processing Option</td><td>Start frame only · Start + End frame</td><td>For Frame-to-Video mode</td></tr>
+            <tr><td>Max Input Images per Prompt</td><td>1 – 10</td><td>For Ingredients/Image-to-Image modes</td></tr>
+            <tr><td>Max Retries</td><td>1 – 20</td><td>Retries on generation failure</td></tr>
+            <tr><td>Auto Download Video</td><td>No Download · 720p · 2K · 720p 30FPS · 2K 30FPS · 720p 60FPS · 2K 60FPS</td><td>Highest quality: 2K 60FPS</td></tr>
+            <tr><td>Auto Download Image</td><td>No Download · 1K · 2K</td><td>Automatic save after generation</td></tr>
+            <tr><td>Language</td><td>EN · VI · ZH · KO · ES · JA</td><td>UI language</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tips -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">💡</span> Tips & Best Practices</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>Use <strong>Concat</strong> duration to chain prompts into one long video.</li>
+          <li>Use <strong>Edit Image mode</strong> for image chaining — each output feeds the next prompt.</li>
+          <li>Use the <strong>Quick Fix</strong> button if generation gets stuck.</li>
+          <li>Increase <strong>Random Delay</strong> if you hit rate limits.</li>
+          <li>Start with <strong>1 concurrent prompt</strong> and increase slowly.</li>
+          <li>Name character images descriptively for auto-matching: <code>hero.png</code>, <code>dragon.jpg</code>.</li>
+          <li>Download at <strong>2K 60FPS</strong> for the highest quality output available on Seedance.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Troubleshooting -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">🔧</span> Troubleshooting</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Extension not active</div>
+          <div class="trouble-a">Must be on <strong>dreamina.capcut.com</strong> or <strong>jimeng.jianying.com</strong>. Navigate there and refresh.</div>
+        </div>
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Generation errors</div>
+          <div class="trouble-a">The tool auto-retries. Use the <strong>Quick Fix</strong> button if it stays stuck.</div>
+        </div>
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Downloads not working</div>
+          <div class="trouble-a">Go to <strong>Chrome Settings → Downloads</strong> and turn <strong>OFF</strong> "Ask where to save each file before downloading".</div>
+        </div>
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Login required error</div>
+          <div class="trouble-a">You must be logged into Dreamina / Jimeng before using the extension.</div>
+        </div>
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Image chaining not working</div>
+          <div class="trouble-a">Make sure <strong>Edit Image mode</strong> is enabled in Settings. Image chaining only works in Mode 5 with Edit Image active.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>🔒 All processing is local — no data leaves your device.</span>
+      <span>✉ <a href="mailto:nguyendinhdungqd@gmail.com">nguyendinhdungqd@gmail.com</a> · Author: Trường Nguyễn</span>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       TAB 4 — META AI
+  ════════════════════════════════════════════════════════════ -->
+  <div class="tab-content" id="tab-meta">
+
+    <div class="tab-banner">
+      <div class="tab-banner-icon">🔵</div>
+      <div>
+        <div class="tab-banner-title">Meta AI</div>
+        <div class="tab-banner-sub">
+          Sites: <a href="https://meta.ai" target="_blank">meta.ai</a>
+          &nbsp;·&nbsp; <a href="https://meta.ai/media" target="_blank">meta.ai/media</a>
+          &nbsp;·&nbsp; 4 Modes
+        </div>
+      </div>
+    </div>
+
+    <!-- Getting Started -->
+    <div class="section open">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">🚀</span> Getting Started</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-body">Open <a href="https://meta.ai/media" target="_blank">meta.ai/media</a> and make sure you are <strong>logged in</strong> to Meta.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-body">Click the extension icon and <strong>pin it</strong> to the toolbar.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-body">In the <strong>Control tab</strong>, configure: Concurrent Prompts and Prompt Delay.</div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-body">Select your mode and click <strong>Run</strong>.</div></div>
+        </div>
+        <div class="callout warn">
+          <div class="callout-label">⚠ Important</div>
+          <p>The extension only activates on <strong>meta.ai</strong> or <strong>meta.ai/media</strong>. If the panel shows "not active", navigate to one of those URLs and refresh.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modes Overview -->
+    <div class="section open">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">🎛️</span> Modes Overview</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="mode-grid">
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 1</div>
+            <div class="mode-card-title">Text-to-Video</div>
+            <p>Generate videos from text prompts. Blank line separator.</p>
+          </div>
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 2</div>
+            <div class="mode-card-title">Image-to-Video</div>
+            <p>Animate a source image with text prompts. One image used across all prompts.</p>
+          </div>
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 3</div>
+            <div class="mode-card-title">Text-to-Image</div>
+            <p>Generate images from descriptions with configurable aspect ratio.</p>
+          </div>
+          <div class="mode-card">
+            <div class="mode-card-num">Mode 4</div>
+            <div class="mode-card-title">Image-to-Image</div>
+            <p>Generate variations of a source image using text prompts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mode Details -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">📋</span> Mode Details</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+
+        <h3>Mode 1 — Text-to-Video</h3>
+        <ul>
+          <li>Enter prompts separated by <strong>blank lines</strong>, or upload a <code>.txt</code> file.</li>
+          <li>Click <strong>Run</strong> to start batch generation.</li>
+        </ul>
+
+        <h3>Mode 2 — Image-to-Video</h3>
+        <ul>
+          <li>Upload or drag-drop a <strong>single source image</strong>.</li>
+          <li>Enter prompts — the same image is used with each prompt.</li>
+          <li>Click <strong>Run</strong>.</li>
+        </ul>
+
+        <h3>Mode 3 — Text-to-Image</h3>
+        <ul>
+          <li>Enter image descriptions, one per blank-line-separated block.</li>
+          <li>Configure <strong>Aspect Ratio</strong> in Settings.</li>
+          <li>Click <strong>Run</strong>.</li>
+        </ul>
+
+        <h3>Mode 4 — Image-to-Image</h3>
+        <ul>
+          <li>Upload a <strong>source image</strong>.</li>
+          <li>Enter prompts describing the desired variations.</li>
+          <li>Click <strong>Run</strong>.</li>
+        </ul>
+
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">⚙️</span> Settings Reference</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <table class="settings-table">
+          <thead><tr><th>Setting</th><th>Options</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Default Mode</td><td>Mode 1–4</td><td>Mode loaded on panel open</td></tr>
+            <tr><td>Default Aspect Ratio</td><td>16:9 · 9:16 · 1:1</td><td>For image generation modes</td></tr>
+            <tr><td>Outputs per Prompt</td><td>1 – 4</td><td>Videos or images generated per prompt</td></tr>
+            <tr><td>Concurrent Prompts</td><td>1 – 6</td><td>Parallel prompt submissions</td></tr>
+            <tr><td>Prompt Delay</td><td>0 – 300 s</td><td>Wait between prompt submissions</td></tr>
+            <tr><td>Auto Download</td><td>On · Off</td><td>Automatically save generated media</td></tr>
+            <tr><td>Language</td><td>EN · VI · ZH · KO · JA · ES</td><td>UI language</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tips -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">💡</span> Tips & Best Practices</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>Increase <strong>Prompt Delay</strong> if you hit rate limits.</li>
+          <li>Start with <strong>1 concurrent prompt</strong> and increase slowly.</li>
+          <li>Downloads are auto-sorted into project folders for easy organization.</li>
+          <li>For Image-to-Video, use a high-quality, well-lit source image for best results.</li>
+          <li>Use English prompts for the most consistent output quality.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Troubleshooting -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-title"><span class="s-icon">🔧</span> Troubleshooting</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Extension not active</div>
+          <div class="trouble-a">Must be on <strong>meta.ai</strong> or <strong>meta.ai/media</strong>. Navigate there and refresh the page.</div>
+        </div>
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Generation errors</div>
+          <div class="trouble-a">The tool auto-retries on failure. Wait for the retry cycle to complete.</div>
+        </div>
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Downloads not working</div>
+          <div class="trouble-a">Go to <strong>Chrome Settings → Downloads</strong> and turn <strong>OFF</strong> "Ask where to save each file before downloading".</div>
+        </div>
+        <div class="trouble-item">
+          <div class="trouble-q">❓ Login required error</div>
+          <div class="trouble-a">You must be logged into <strong>Meta.ai</strong> before using the extension.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>🔒 All processing is local — no data leaves your device.</span>
+      <span>✉ <a href="mailto:nguyendinhdungqd@gmail.com">nguyendinhdungqd@gmail.com</a> · Author: Trường Nguyễn</span>
+    </div>
+  </div>
+
+
+  <script>
+    // ── Tab switching ──────────────────────────────────────────
+    function switchTab(tabId) {
+      // Update buttons
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === tabId);
+      });
+      // Update content panels
+      document.querySelectorAll('.tab-content').forEach(panel => {
+        panel.classList.toggle('active', panel.id === 'tab-' + tabId);
+      });
+      // Clear search when switching tabs
+      if (document.getElementById('searchInput').value) {
+        clearSearch();
+      }
+    }
+
+    // ── Accordion sections ─────────────────────────────────────
+    function toggleSection(header) {
+      const section = header.parentElement;
+      section.classList.toggle('open');
+    }
+
+    // ── Search ─────────────────────────────────────────────────
+    let searchTimeout = null;
+
+    function handleSearch(query) {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => performSearch(query.trim()), 150);
+
+      const clearBtn = document.getElementById('searchClear');
+      clearBtn.style.display = query ? 'block' : 'none';
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('searchInput');
+      input.value = '';
+      document.getElementById('searchClear').style.display = 'none';
+      performSearch('');
+    }
+
+    function performSearch(query) {
+      const body = document.body;
+      const noResults = document.getElementById('noResults');
+      const tabNav = document.getElementById('tabNav');
+
+      if (!query) {
+        // Restore normal state
+        body.classList.remove('search-active');
+        noResults.classList.remove('visible');
+        tabNav.style.display = '';
+
+        // Remove all highlights
+        document.querySelectorAll('mark').forEach(m => {
+          const parent = m.parentNode;
+          parent.replaceChild(document.createTextNode(m.textContent), m);
+          parent.normalize();
+        });
+
+        // Restore only the active tab
+        const activeTabId = document.querySelector('.tab-btn.active').dataset.tab;
+        document.querySelectorAll('.tab-content').forEach(panel => {
+          panel.classList.toggle('active', panel.id === 'tab-' + activeTabId);
+        });
+
+        // Restore section open states (keep them as-is)
+        return;
+      }
+
+      // Remove old highlights first
+      document.querySelectorAll('mark').forEach(m => {
+        const parent = m.parentNode;
+        parent.replaceChild(document.createTextNode(m.textContent), m);
+        parent.normalize();
+      });
+
+      body.classList.add('search-active');
+      tabNav.style.display = 'none';
+
+      const lowerQuery = query.toLowerCase();
+      let totalMatches = 0;
+
+      document.querySelectorAll('.tab-content').forEach(panel => {
+        let panelMatches = 0;
+
+        // Search in text nodes within searchable elements
+        const searchableSelectors = 'p, li, td, .mode-card-title, .mode-card p, .trouble-q, .trouble-a, .callout p, .step-body, h3, .tab-banner-title, .tab-banner-sub';
+        panel.querySelectorAll(searchableSelectors).forEach(el => {
+          if (highlightText(el, lowerQuery)) {
+            panelMatches++;
+          }
+        });
+
+        // Show/hide panel based on matches
+        panel.style.display = panelMatches > 0 ? 'block' : 'none';
+
+        // Open sections that have matches
+        if (panelMatches > 0) {
+          panel.querySelectorAll('.section').forEach(section => {
+            const hasMatch = section.querySelector('mark');
+            if (hasMatch) section.classList.add('open');
+          });
+        }
+
+        totalMatches += panelMatches;
+      });
+
+      noResults.classList.toggle('visible', totalMatches === 0);
+    }
+
+    function highlightText(element, query) {
+      let found = false;
+      const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
+      const nodesToProcess = [];
+
+      let node;
+      while ((node = walker.nextNode())) {
+        if (node.textContent.toLowerCase().includes(query)) {
+          nodesToProcess.push(node);
+        }
+      }
+
+      nodesToProcess.forEach(textNode => {
+        const text = textNode.textContent;
+        const lowerText = text.toLowerCase();
+        const idx = lowerText.indexOf(query);
+        if (idx === -1) return;
+
+        found = true;
+        const before = text.slice(0, idx);
+        const match = text.slice(idx, idx + query.length);
+        const after = text.slice(idx + query.length);
+
+        const fragment = document.createDocumentFragment();
+        if (before) fragment.appendChild(document.createTextNode(before));
+        const mark = document.createElement('mark');
+        mark.textContent = match;
+        fragment.appendChild(mark);
+        if (after) fragment.appendChild(document.createTextNode(after));
+
+        textNode.parentNode.replaceChild(fragment, textNode);
+      });
+
+      return found;
+    }
+
+    // ── Init ───────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Read #tab=xxx from URL hash and switch to that tab
+      function getTabFromHash() {
+        const hash = window.location.hash; // e.g. "#tab=grok"
+        if (!hash) return null;
+        const match = hash.match(/[#&]tab=([a-z]+)/);
+        return match ? match[1] : null;
+      }
+
+      const validTabs = ['veo', 'grok', 'seedance', 'meta'];
+      const tabFromHash = getTabFromHash();
+      if (tabFromHash && validTabs.includes(tabFromHash)) {
+        switchTab(tabFromHash);
+      }
+
+      // Also handle hash changes (e.g. back/forward navigation)
+      window.addEventListener('hashchange', () => {
+        const t = getTabFromHash();
+        if (t && validTabs.includes(t)) switchTab(t);
+      });
+
+      // Keyboard shortcuts
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && document.getElementById('searchInput').value) {
+          clearSearch();
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+          e.preventDefault();
+          document.getElementById('searchInput').focus();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
+
