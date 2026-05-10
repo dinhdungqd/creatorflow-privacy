@@ -6,223 +6,92 @@
   <title>Privacy Policy – CreatorFlow</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #1a1a1a;
-      color: #e8eaed;
-      font-size: 14px;
-      line-height: 1.75;
-      padding: 0 0 48px;
+      background: #1a1a1a; color: #e8eaed;
+      font-size: 14px; line-height: 1.75; padding: 0 0 48px;
     }
-
-    /* ── Header ── */
     .topbar {
-      position: sticky;
-      top: 0;
-      background: #1f2023;
-      border-bottom: 1px solid #3c4043;
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      z-index: 100;
+      position: sticky; top: 0;
+      background: #1f2023; border-bottom: 1px solid #3c4043;
+      padding: 10px 20px; display: flex; align-items: center; gap: 12px; z-index: 100;
     }
     .back-btn {
-      background: none;
-      border: 1px solid #5f6368;
-      color: #8ab4f8;
-      padding: 5px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 13px;
-      flex-shrink: 0;
+      background: none; border: 1px solid #5f6368; color: #8ab4f8;
+      padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 13px;
     }
     .back-btn:hover { background: #2d2e31; }
     .topbar-title { font-size: 15px; font-weight: 600; color: #e8eaed; }
+    .content { padding: 24px 20px; }
+    .page-title { font-size: 22px; font-weight: 700; color: #e8eaed; margin-bottom: 4px; }
+    .page-meta { font-size: 12px; color: #9aa0a6; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
 
-    /* ── Content ── */
-    .content { padding: 24px 20px; max-width: 720px; }
-
-    .page-title {
-      font-size: 22px;
-      font-weight: 700;
-      color: #e8eaed;
-      margin-bottom: 4px;
-    }
-    .page-meta {
-      font-size: 12px;
-      color: #9aa0a6;
-      margin-bottom: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .page-meta span { display: flex; align-items: center; gap: 4px; }
-
-    /* ── Key statement banner ── */
+    /* Key statement */
     .key-statement {
-      background: linear-gradient(135deg, #1e3a2f 0%, #1a2e24 100%);
-      border: 1px solid #2d6a4f;
-      border-left: 4px solid #52b788;
-      border-radius: 8px;
-      padding: 16px 18px;
-      margin-bottom: 24px;
+      background: linear-gradient(135deg, #1e3a2f, #1a2e24);
+      border: 1px solid #2d6a4f; border-left: 4px solid #52b788;
+      border-radius: 8px; padding: 16px 18px; margin-bottom: 20px;
     }
-    .key-statement-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #52b788;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
-    }
-    .key-statement p {
-      color: #d8f3dc;
-      font-size: 14px;
-      margin-bottom: 6px;
-    }
+    .key-statement-title { font-size: 11px; font-weight: 700; color: #52b788; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .key-statement p { color: #d8f3dc; font-size: 14px; margin-bottom: 6px; }
     .key-statement p:last-child { margin-bottom: 0; }
 
-    /* ── Sections ── */
-    .section {
-      margin-bottom: 20px;
-      border: 1px solid #3c4043;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .section-header {
-      background: #242527;
-      padding: 12px 16px;
-      border-bottom: 1px solid #3c4043;
-    }
-    .section-num {
-      font-size: 10px;
-      font-weight: 700;
-      color: #8ab4f8;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 2px;
-    }
-    .section-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: #e8eaed;
-    }
-    .section-body {
-      padding: 14px 16px;
-      background: #1e1f21;
-    }
-    .section-body p {
-      color: #bdc1c6;
-      margin-bottom: 10px;
-    }
-    .section-body p:last-child { margin-bottom: 0; }
-    .section-body ul {
-      padding-left: 18px;
-      color: #bdc1c6;
-      margin-bottom: 10px;
-    }
-    .section-body ul:last-child { margin-bottom: 0; }
-    .section-body li { margin-bottom: 5px; }
-    .section-body li:last-child { margin-bottom: 0; }
-    .section-body strong { color: #e8eaed; }
-
-    /* ── Permission table ── */
-    .perm-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      margin-top: 10px;
-    }
-    .perm-table th {
-      background: #2d2e31;
-      color: #8ab4f8;
-      text-align: left;
-      padding: 8px 12px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-      border-bottom: 1px solid #3c4043;
-    }
-    .perm-table td {
-      padding: 9px 12px;
-      border-bottom: 1px solid #2d2e31;
-      vertical-align: top;
-      color: #bdc1c6;
-    }
-    .perm-table tr:last-child td { border-bottom: none; }
-    .perm-table tr:hover td { background: #242527; }
-    .perm-table td:first-child {
-      color: #e8eaed;
-      font-weight: 600;
-      white-space: nowrap;
-      width: 130px;
-    }
-
-    /* ── Callout ── */
-    .callout {
-      border-left: 3px solid #8ab4f8;
-      background: #2d2e31;
-      padding: 10px 14px;
-      border-radius: 0 6px 6px 0;
-      margin: 12px 0;
-      font-size: 13px;
-      color: #bdc1c6;
-    }
-    .callout.green { border-color: #52b788; }
-    .callout.yellow { border-color: #fdd663; }
-
-    /* ── Disclaimer box ── */
+    /* Disclaimer */
     .disclaimer {
-      background: #2a2200;
-      border: 1px solid #5c4a00;
-      border-left: 4px solid #fdd663;
-      border-radius: 8px;
-      padding: 14px 16px;
-      margin-bottom: 20px;
-    }
-    .disclaimer-title {
-      font-size: 11px;
-      font-weight: 700;
-      color: #fdd663;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
+      background: #2a2200; border: 1px solid #5c4a00; border-left: 4px solid #fdd663;
+      border-radius: 8px; padding: 14px 16px; margin-bottom: 20px;
     }
     .disclaimer p { color: #e8d5a3; font-size: 13px; margin-bottom: 4px; }
     .disclaimer p:last-child { margin-bottom: 0; }
 
-    /* ── Footer ── */
-    .footer {
-      margin-top: 28px;
-      padding: 16px;
-      background: #242527;
-      border: 1px solid #3c4043;
-      border-radius: 8px;
-      font-size: 13px;
+    /* Sections */
+    .section { margin-bottom: 12px; border: 1px solid #3c4043; border-radius: 8px; overflow: hidden; }
+    .section-header { background: #242527; padding: 12px 16px; border-bottom: 1px solid #3c4043; }
+    .section-num { font-size: 10px; font-weight: 700; color: #8ab4f8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+    .section-title { font-size: 14px; font-weight: 600; color: #e8eaed; }
+    .section-body { padding: 14px 16px; background: #1e1f21; }
+    .section-body p { color: #bdc1c6; margin-bottom: 10px; font-size: 14px; }
+    .section-body p:last-child { margin-bottom: 0; }
+    .section-body strong { color: #e8eaed; }
+    .section-body ul { padding-left: 18px; color: #bdc1c6; margin-bottom: 10px; }
+    .section-body ul:last-child { margin-bottom: 0; }
+    .section-body li { margin-bottom: 5px; font-size: 14px; }
+
+    /* Table */
+    .perm-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
+    .perm-table th { background: #2d2e31; color: #8ab4f8; text-align: left; padding: 8px 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; border-bottom: 1px solid #3c4043; }
+    .perm-table td { padding: 9px 12px; border-bottom: 1px solid #2d2e31; vertical-align: top; color: #bdc1c6; }
+    .perm-table tr:last-child td { border-bottom: none; }
+    .perm-table tr:hover td { background: #242527; }
+    .perm-table td:first-child { color: #e8eaed; font-weight: 600; white-space: nowrap; width: 120px; font-family: "Consolas", monospace; font-size: 12px; color: #8ab4f8; }
+
+    /* Callout */
+    .callout { border-left: 3px solid #52b788; background: #2d2e31; padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 10px 0; font-size: 13px; color: #bdc1c6; }
+    .callout.yellow { border-left-color: #fdd663; }
+    .callout.red { border-left-color: #f28b82; }
+
+    /* Data summary box */
+    .data-summary {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0;
     }
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+    @media (max-width: 400px) { .data-summary { grid-template-columns: 1fr; } }
+    .data-item {
+      background: #242527; border: 1px solid #3c4043; border-radius: 6px; padding: 10px 12px;
     }
-    @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+    .data-item-label { font-size: 10px; font-weight: 700; color: #9aa0a6; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; }
+    .data-item-val { font-size: 13px; font-weight: 600; }
+    .data-item-val.green { color: #52b788; }
+    .data-item-val.red { color: #f28b82; }
+
+    /* Footer */
+    .footer { margin-top: 24px; padding: 16px; background: #242527; border: 1px solid #3c4043; border-radius: 8px; font-size: 13px; }
+    .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 400px) { .footer-grid { grid-template-columns: 1fr; } }
     .footer-item { color: #9aa0a6; }
-    .footer-item strong { color: #bdc1c6; display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 2px; }
+    .footer-item strong { color: #bdc1c6; display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 2px; }
     a { color: #8ab4f8; text-decoration: none; }
     a:hover { text-decoration: underline; }
-
-    code {
-      background: #2d2e31;
-      color: #81c995;
-      padding: 1px 5px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-family: "Consolas", monospace;
-    }
-
+    code { background: #2d2e31; color: #81c995; padding: 1px 5px; border-radius: 4px; font-size: 12px; font-family: "Consolas", monospace; }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #1a1a1a; }
     ::-webkit-scrollbar-thumb { background: #3c4043; border-radius: 3px; }
@@ -244,209 +113,291 @@
       <span>✉ <a href="mailto:nguyendinhdungqd@gmail.com">nguyendinhdungqd@gmail.com</a></span>
     </div>
 
-    <!-- Key Statement -->
+    <!-- Core commitment -->
     <div class="key-statement">
-      <div class="key-statement-title">✅ Core Data Commitment</div>
-      <p><strong>CreatorFlow does not collect, store, sell, or transmit personal data to external servers.</strong></p>
-      <p>All extension functionality runs entirely locally in the user's browser. No browsing history, prompts, account credentials, images, videos, or any personal information are ever transmitted to the developer or any third party.</p>
+      <div class="key-statement-title">✅ Core Privacy Commitment</div>
+      <p><strong>CreatorFlow does not collect, store, sell, or transmit any personal data to external servers.</strong></p>
+      <p>All extension functionality runs entirely locally within your browser. No browsing history, prompts, images, videos, account credentials, or any personal information is ever transmitted to the developer or any third party.</p>
     </div>
 
     <!-- Disclaimer -->
     <div class="disclaimer">
-      <div class="disclaimer-title">⚠ Third-Party Disclaimer</div>
-      <p><strong>CreatorFlow is not affiliated with, endorsed by, or connected to Google, xAI (Grok), Meta, CapCut, ByteDance, or any third-party AI platform.</strong></p>
-      <p>This extension is an independent productivity tool. All product names and trademarks belong to their respective owners.</p>
+      <p>⚠ <strong>CreatorFlow is not affiliated with, endorsed by, or connected to Google, xAI (Grok), Meta, CapCut, ByteDance, or any third-party AI platform.</strong> This is an independent productivity tool. All product names and trademarks belong to their respective owners.</p>
     </div>
 
-    <!-- Section 1 -->
+    <!-- Quick summary -->
     <div class="section">
       <div class="section-header">
-        <div class="section-num">Section 1</div>
-        <div class="section-title">Data Collection Statement</div>
+        <div class="section-num">Summary</div>
+        <div class="section-title">At a Glance — What We Do and Don't Do</div>
       </div>
       <div class="section-body">
-        <p>CreatorFlow <strong>does not collect any personally identifiable information</strong>. Specifically, the extension does <strong>not</strong> collect, access, store, or transmit:</p>
-        <ul>
-          <li>Your name, email address, or account credentials</li>
-          <li>Prompts or text you enter into AI platforms</li>
-          <li>Images or videos you upload or generate</li>
-          <li>Browsing history or visited URLs</li>
-          <li>IP addresses or device identifiers</li>
-          <li>Any form of usage analytics or telemetry</li>
-        </ul>
-        <div class="callout green">
-          No data from your browser or AI sessions is ever sent to the developer or any external server.
+        <div class="data-summary">
+          <div class="data-item">
+            <div class="data-item-label">Personal Data Collected</div>
+            <div class="data-item-val green">✅ None</div>
+          </div>
+          <div class="data-item">
+            <div class="data-item-label">Data Sent to Servers</div>
+            <div class="data-item-val green">✅ None</div>
+          </div>
+          <div class="data-item">
+            <div class="data-item-label">Analytics / Tracking</div>
+            <div class="data-item-val green">✅ None</div>
+          </div>
+          <div class="data-item">
+            <div class="data-item-label">Third-Party APIs Used</div>
+            <div class="data-item-val green">✅ None</div>
+          </div>
+          <div class="data-item">
+            <div class="data-item-label">Data Sold to Third Parties</div>
+            <div class="data-item-val green">✅ Never</div>
+          </div>
+          <div class="data-item">
+            <div class="data-item-label">Local Storage Used</div>
+            <div class="data-item-val" style="color:#8ab4f8">⚙ Settings only</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Section 2 -->
+    <!-- Section 1: What data the extension reads -->
     <div class="section">
       <div class="section-header">
-        <div class="section-num">Section 2</div>
-        <div class="section-title">Local Storage Only</div>
+        <div class="section-num">Section 1</div>
+        <div class="section-title">What Data the Extension Reads</div>
       </div>
       <div class="section-body">
-        <p>User settings and preferences are stored <strong>locally</strong> using Chrome's built-in <code>chrome.storage.local</code> API. This data never leaves your device. Stored data includes only:</p>
+        <p>CreatorFlow reads only the minimum data required to provide its features. Specifically:</p>
         <ul>
-          <li>Last active tool tab (VEO, Grok, Seedance, Meta)</li>
-          <li>Download folder name and file prefix preferences</li>
-          <li>Automation configuration options you have set (e.g. concurrent prompts, delay)</li>
-          <li>UI language preference</li>
+          <li><strong>Active tab URL</strong> — read once when the side panel opens, solely to detect which supported AI site is active and auto-switch the panel tab. The URL is never stored or transmitted.</li>
+          <li><strong>DOM elements on supported AI sites</strong> — the extension interacts with UI elements (buttons, text inputs, image upload areas) on the AI platform pages you are actively using. This interaction is performed locally in your browser. No DOM content, text, or images are extracted, stored, or sent anywhere.</li>
+          <li><strong>Download file metadata</strong> — when auto-saving generated media, the extension reads the filename and URL of the file being downloaded. This is used only to rename and organize files in your local Downloads folder. No file content is transmitted.</li>
         </ul>
-        <p>This data is stored solely to restore your preferences between sessions. It is never read by the developer and never transmitted anywhere.</p>
+        <div class="callout">
+          The extension does <strong>not</strong> read: your account credentials, session tokens, cookies, personal profile data, chat history, prompt history, or any content outside the supported AI sites.
+        </div>
       </div>
     </div>
 
-    <!-- Section 3 -->
+    <!-- Section 2: What data is stored locally -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">Section 2</div>
+        <div class="section-title">What Data Is Stored Locally</div>
+      </div>
+      <div class="section-body">
+        <p>User settings and preferences are stored <strong>locally on your device</strong> using Chrome's built-in <code>chrome.storage.local</code> API. This data never leaves your device. The only data stored is:</p>
+        <ul>
+          <li>Last active tool tab (VEO, Grok, Seedance, or Meta)</li>
+          <li>Download folder name and file prefix you have configured</li>
+          <li>Workflow settings you have set (e.g. number of concurrent prompts, delay between prompts)</li>
+          <li>UI language preference</li>
+          <li>Auto-download quality preference</li>
+        </ul>
+        <p>This data is stored solely to restore your preferences between sessions. It is never read by the developer and never transmitted anywhere.</p>
+        <div class="callout">
+          No prompts, images, videos, or AI-generated content are ever stored by the extension.
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Data sent to servers -->
     <div class="section">
       <div class="section-header">
         <div class="section-num">Section 3</div>
-        <div class="section-title">Permissions Explained</div>
+        <div class="section-title">Data Sent to External Servers</div>
       </div>
       <div class="section-body">
-        <p>CreatorFlow requests only the permissions necessary for its core functionality. Each permission is explained below:</p>
+        <p><strong>No data is sent to any external server by this extension.</strong></p>
+        <p>All extension logic, UI, and configuration are bundled locally within the extension package. The extension makes no outbound network requests of its own. The only network activity that occurs is the normal browser traffic between your browser and the AI platforms you are using — this traffic is entirely outside the extension's control and is governed by those platforms' own privacy policies.</p>
+        <div class="callout">
+          The extension operates fully offline after installation. No telemetry, crash reports, usage statistics, or any other data is transmitted to the developer.
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: Analytics and tracking -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">Section 4</div>
+        <div class="section-title">Analytics, Tracking, and Crash Reporting</div>
+      </div>
+      <div class="section-body">
+        <p>CreatorFlow contains <strong>no analytics libraries, tracking pixels, telemetry systems, crash reporting tools, or usage monitoring</strong> of any kind.</p>
+        <p>The developer has zero visibility into:</p>
+        <ul>
+          <li>How often or when you use the extension</li>
+          <li>Which features or modes you use</li>
+          <li>What prompts or content you generate</li>
+          <li>Any errors or crashes that occur on your device</li>
+          <li>Your geographic location or device information</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Section 5: Third-party APIs -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">Section 5</div>
+        <div class="section-title">Third-Party APIs and Services</div>
+      </div>
+      <div class="section-body">
+        <p><strong>CreatorFlow does not use any third-party APIs, SDKs, or external services.</strong></p>
+        <p>The extension does not integrate with:</p>
+        <ul>
+          <li>Advertising networks or ad SDKs</li>
+          <li>Analytics platforms (e.g. Google Analytics, Mixpanel, Amplitude)</li>
+          <li>Crash reporting services (e.g. Sentry, Bugsnag)</li>
+          <li>Data brokers or identity resolution services</li>
+          <li>Any developer-controlled backend API</li>
+        </ul>
+        <p>The AI platforms themselves (Google Flow, Grok, Dreamina, Meta AI) are accessed directly by your browser as you normally would — the extension only assists with UI interactions on those pages.</p>
+      </div>
+    </div>
+
+    <!-- Section 6: Data not sold -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">Section 6</div>
+        <div class="section-title">Data Not Sold to Third Parties</div>
+      </div>
+      <div class="section-body">
+        <p><strong>We do not sell, rent, trade, or otherwise disclose any user data to third parties — because we do not collect any user data in the first place.</strong></p>
+        <p>This applies to all categories of personal information including but not limited to: identifiers, browsing history, usage data, content, geolocation, and inferences drawn from any of the above.</p>
+      </div>
+    </div>
+
+    <!-- Section 7: Permissions explained -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">Section 7</div>
+        <div class="section-title">Chrome Permissions Explained</div>
+      </div>
+      <div class="section-body">
+        <p>CreatorFlow requests only the permissions strictly necessary for its features. Each permission is explained below:</p>
         <table class="perm-table">
-          <thead>
-            <tr><th>Permission</th><th>Why It Is Needed</th></tr>
-          </thead>
+          <thead><tr><th>Permission</th><th>Purpose &amp; Scope</th></tr></thead>
           <tbody>
             <tr>
               <td>tabs</td>
-              <td>The extension may access browser tab information <strong>only to provide user-requested workflow features</strong> across supported AI websites — for example, detecting which AI site is active to auto-switch the side panel, or reloading a tab after installation. No tab content or URLs are stored or transmitted.</td>
+              <td>Read the URL of the active tab <strong>only</strong> to detect which supported AI site is open and auto-switch the side panel. Also used to reload a tab after installation. No tab content, history, or URLs are stored or transmitted.</td>
             </tr>
             <tr>
               <td>activeTab</td>
-              <td>Allows the extension to interact with the currently open AI site tab when the user initiates an action. Used solely to automate UI interactions on the active page at the user's request.</td>
+              <td>Interact with the currently open AI site tab when you initiate a workflow action. Used solely to assist with UI interactions on the active page at your request.</td>
             </tr>
             <tr>
               <td>storage</td>
-              <td>Saves your local preferences (folder names, settings, last-used mode) in Chrome's local storage. Data never leaves your device.</td>
+              <td>Save your local preferences (folder name, settings, last-used mode) in Chrome's local storage on your device. Data never leaves your device.</td>
             </tr>
             <tr>
               <td>downloads</td>
-              <td>Enables automatic saving of AI-generated videos and images to your local device when generation completes. Files are saved directly to your Downloads folder — no file content is transmitted to any server.</td>
+              <td>Save AI-generated videos and images to your local device when generation completes. Files go directly to your Downloads folder. No file content is transmitted to any server.</td>
             </tr>
             <tr>
               <td>sidePanel</td>
-              <td>Displays the CreatorFlow control panel in Chrome's built-in side panel UI.</td>
+              <td>Display the CreatorFlow control panel in Chrome's built-in side panel UI.</td>
             </tr>
             <tr>
               <td>debugger</td>
-              <td>Used exclusively to simulate mouse click events (mousePressed / mouseReleased via Chrome DevTools Protocol) on AI platform UI buttons that intercept and block standard programmatic DOM click events. This is a technical requirement because modern AI platforms built with React/Vue prevent automation via <code>element.click()</code>. <strong>The debugger permission is used only to dispatch synthetic input events. No page content, DOM data, network traffic, credentials, screenshots, or any user information is read, recorded, or transmitted through this permission.</strong> The debugger is attached only to the active AI site tab, only when the user initiates an automation action, and detached immediately after the click is dispatched.</td>
+              <td>
+                Used exclusively to dispatch synthetic mouse click events (mousePressed / mouseReleased via Chrome DevTools Protocol) on AI platform UI buttons that block standard programmatic DOM clicks. Modern AI platforms built with React/Vue intercept <code>element.click()</code> calls, making this the only reliable method to interact with their UI.<br><br>
+                <strong>Scope is strictly limited:</strong>
+                <ul style="margin-top:6px">
+                  <li>Attached only to the active AI site tab</li>
+                  <li>Only when you initiate a workflow action</li>
+                  <li>Detached immediately after the click event is dispatched</li>
+                  <li>No page content, DOM data, network traffic, screenshots, credentials, or any user information is read, recorded, or transmitted through this permission</li>
+                </ul>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- Section 4 -->
+    <!-- Section 8: Host permissions -->
     <div class="section">
       <div class="section-header">
-        <div class="section-num">Section 4</div>
-        <div class="section-title">Host Permissions &amp; Supported Sites</div>
+        <div class="section-num">Section 8</div>
+        <div class="section-title">Host Permissions — Supported Sites Only</div>
       </div>
       <div class="section-body">
-        <p>The extension is active <strong>only</strong> on the following specific websites, as declared in the extension manifest:</p>
+        <p>The extension is active <strong>only</strong> on these specific websites as declared in the extension manifest:</p>
         <ul>
-          <li><strong>labs.google</strong> — Google Flow / VEO video generation</li>
+          <li><strong>labs.google</strong> — Google Flow / VEO video and image generation</li>
           <li><strong>grok.com</strong> — Grok / xAI image and video generation</li>
           <li><strong>dreamina.capcut.com</strong> and <strong>jimeng.jianying.com</strong> — Seedance / Dreamina generation</li>
           <li><strong>meta.ai</strong> — Meta AI image and video generation</li>
         </ul>
-        <p>The extension does <strong>not</strong> run on any other websites. It cannot access your general browsing activity.</p>
+        <p>The extension does <strong>not</strong> run on any other websites. It cannot access your general browsing activity, search history, or any sites outside this list.</p>
       </div>
     </div>
 
-    <!-- Section 5 -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-num">Section 5</div>
-        <div class="section-title">No Remote Code Execution</div>
-      </div>
-      <div class="section-body">
-        <p>All extension logic, UI components, and configuration data are <strong>bundled locally</strong> within the extension package. No JavaScript code, configuration, or instructions are fetched from external servers at runtime.</p>
-        <div class="callout green">
-          The extension operates fully offline after installation. No network requests are made by the extension itself.
-        </div>
-      </div>
-    </div>
-
-    <!-- Section 6 -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-num">Section 6</div>
-        <div class="section-title">No Analytics, Tracking, or Crash Reporting</div>
-      </div>
-      <div class="section-body">
-        <p>CreatorFlow contains <strong>no analytics libraries, telemetry, crash reporting, or usage tracking</strong> of any kind. The developer has no visibility into:</p>
-        <ul>
-          <li>How often or when you use the extension</li>
-          <li>Which features you use</li>
-          <li>What prompts or content you generate</li>
-          <li>Any errors or crashes that occur</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Section 7 -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-num">Section 7</div>
-        <div class="section-title">No Third-Party Data Sharing</div>
-      </div>
-      <div class="section-body">
-        <p>We do not share, sell, rent, or disclose any user data to third parties — because <strong>we do not collect any user data in the first place</strong>.</p>
-        <p>The extension does not integrate with any advertising networks, data brokers, or analytics services.</p>
-      </div>
-    </div>
-
-    <!-- Section 8 -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-num">Section 8</div>
-        <div class="section-title">Children's Privacy</div>
-      </div>
-      <div class="section-body">
-        <p>This extension is not directed at children under the age of 13. We do not knowingly collect information from children. If you believe a child has provided personal information through this extension, please contact us so we can address it.</p>
-      </div>
-    </div>
-
-    <!-- Section 9 -->
+    <!-- Section 9: No remote code -->
     <div class="section">
       <div class="section-header">
         <div class="section-num">Section 9</div>
+        <div class="section-title">No Remote Code Execution</div>
+      </div>
+      <div class="section-body">
+        <p>All extension logic, UI components, and configuration data are <strong>bundled locally</strong> within the extension package installed on your device. No JavaScript code, configuration files, or instructions are fetched from external servers at runtime.</p>
+        <p>This means the extension's behavior cannot be changed remotely without publishing a new version through the Chrome Web Store review process.</p>
+      </div>
+    </div>
+
+    <!-- Section 10: Children -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">Section 10</div>
+        <div class="section-title">Children's Privacy</div>
+      </div>
+      <div class="section-body">
+        <p>This extension is not directed at children under the age of 13. We do not knowingly collect information from children. If you believe a child has used this extension and you have concerns, please contact us at the email below.</p>
+      </div>
+    </div>
+
+    <!-- Section 11: Data deletion -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">Section 11</div>
+        <div class="section-title">Data Deletion Request</div>
+      </div>
+      <div class="section-body">
+        <p>Since CreatorFlow does not collect or store any personal data on external servers, there is no user data held by the developer to delete.</p>
+        <p>The only data that exists is your local preferences stored in Chrome's local storage on your own device. You can delete this data at any time by:</p>
+        <ul>
+          <li>Uninstalling the extension (Chrome will clear all associated local storage)</li>
+          <li>Going to <strong>chrome://extensions</strong> → CreatorFlow → <strong>"Clear data"</strong></li>
+        </ul>
+        <p>If you have any questions or requests regarding data, contact us at: <a href="mailto:nguyendinhdungqd@gmail.com">nguyendinhdungqd@gmail.com</a></p>
+      </div>
+    </div>
+
+    <!-- Section 12: Changes -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">Section 12</div>
         <div class="section-title">Changes to This Policy</div>
       </div>
       <div class="section-body">
-        <p>If this Privacy Policy is updated, the revised version will be published with the extension update on the Chrome Web Store. The "Last Updated" date at the top of this page will reflect any changes.</p>
-        <p>Continued use of the extension after an update constitutes acceptance of the revised policy.</p>
+        <p>If this Privacy Policy is updated, the revised version will be published with the extension update on the Chrome Web Store. The "Last Updated" date at the top of this page will reflect any changes. Continued use of the extension after an update constitutes acceptance of the revised policy.</p>
       </div>
     </div>
 
     <!-- Footer -->
     <div class="footer">
       <div class="footer-grid">
-        <div class="footer-item">
-          <strong>Extension</strong>
-          CreatorFlow – Tools for Grok, VEO &amp; AI Creators
-        </div>
-        <div class="footer-item">
-          <strong>Last Updated</strong>
-          May 2026
-        </div>
-        <div class="footer-item">
-          <strong>Contact</strong>
-          <a href="mailto:nguyendinhdungqd@gmail.com">nguyendinhdungqd@gmail.com</a>
-        </div>
-        <div class="footer-item">
-          <strong>Data Collection</strong>
-          None — local only
-        </div>
+        <div class="footer-item"><strong>Extension</strong>CreatorFlow – Tools for Grok, VEO &amp; AI Creators</div>
+        <div class="footer-item"><strong>Developer</strong>Dũng Nguyễn</div>
+        <div class="footer-item"><strong>Contact &amp; Data Requests</strong><a href="mailto:nguyendinhdungqd@gmail.com">nguyendinhdungqd@gmail.com</a></div>
+        <div class="footer-item"><strong>Website</strong><a href="https://nguyenanhdung.io.vn" target="_blank">nguyenanhdung.io.vn</a></div>
+        <div class="footer-item"><strong>Last Updated</strong>May 2026</div>
+        <div class="footer-item"><strong>Data Collection</strong><span style="color:#52b788">✅ None — local only</span></div>
       </div>
     </div>
 
-  </div><!-- /content -->
-
+  </div>
 </body>
 </html>
