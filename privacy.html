@@ -333,7 +333,7 @@
             </tr>
             <tr>
               <td>debugger</td>
-              <td>Used to simulate precise mouse click events (mousePressed / mouseReleased) on AI platform buttons that intercept standard DOM click events. This is required because some AI platforms block programmatic clicks. <strong>No page content, credentials, or user data is read, recorded, or transmitted through this permission.</strong></td>
+              <td>Used exclusively to simulate mouse click events (mousePressed / mouseReleased via Chrome DevTools Protocol) on AI platform UI buttons that intercept and block standard programmatic DOM click events. This is a technical requirement because modern AI platforms built with React/Vue prevent automation via <code>element.click()</code>. <strong>The debugger permission is used only to dispatch synthetic input events. No page content, DOM data, network traffic, credentials, screenshots, or any user information is read, recorded, or transmitted through this permission.</strong> The debugger is attached only to the active AI site tab, only when the user initiates an automation action, and detached immediately after the click is dispatched.</td>
             </tr>
           </tbody>
         </table>
