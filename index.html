@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Privacy Policy for CreatorFlow – Tools for Grok, VEO & AI Creators Chrome Extension" />
+  <title>Privacy Policy – CreatorFlow</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --bg-card: #161b22;
+      --bg-card2: #21262d;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --text-dim: #6e7681;
+      --accent: #58a6ff;
+      --green: #3fb950;
+      --green-bg: #0d2119;
+      --green-border: #1f6335;
+      --yellow: #d29922;
+      --yellow-bg: #1c1700;
+      --yellow-border: #4d3800;
+      --red: #f85149;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    nav {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, #58a6ff, #3fb950);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      margin-left: auto;
+    }
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-link:hover { color: var(--text); background: var(--bg-card2); }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 24px 40px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+    .hero-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    .chip:hover { border-color: var(--accent); color: var(--accent); }
+    .chip.green { border-color: var(--green-border); color: var(--green); background: var(--green-bg); }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── Key Statement ── */
+    .key-box {
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .key-box-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+    .key-box-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .key-box p { color: #aff5b4; font-size: 14px; margin-bottom: 6px; }
+    .key-box p:last-child { margin-bottom: 0; }
+    .key-box strong { color: #d2f8d6; }
+
+    /* ── Disclaimer ── */
+    .disclaimer-box {
+      background: var(--yellow-bg);
+      border: 1px solid var(--yellow-border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 32px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .disclaimer-box-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+    .disclaimer-box p { color: #e3b341; font-size: 13px; margin-bottom: 4px; }
+    .disclaimer-box p:last-child { margin-bottom: 0; }
+    .disclaimer-box strong { color: #f0c040; }
+
+    /* ── Section ── */
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .section-head {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-num {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.3px;
+      flex-shrink: 0;
+    }
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .section-body {
+      padding: 18px 20px;
+    }
+    .section-body p {
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+    .section-body p:last-child { margin-bottom: 0; }
+    .section-body strong { color: var(--text); }
+    .section-body ul {
+      padding-left: 20px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .section-body ul:last-child { margin-bottom: 0; }
+    .section-body li { margin-bottom: 6px; font-size: 14px; }
+    .section-body li:last-child { margin-bottom: 0; }
+
+    /* ── Callout ── */
+    .callout {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin: 12px 0;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .callout.green { border-left-color: var(--green); }
+    .callout.yellow { border-left-color: var(--yellow); }
+
+    /* ── Permission table ── */
+    .perm-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 12px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .perm-table thead tr { background: var(--bg-card2); }
+    .perm-table th {
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      border-bottom: 1px solid var(--border);
+    }
+    .perm-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+    .perm-table tr:last-child td { border-bottom: none; }
+    .perm-table tr:hover td { background: #1c2128; }
+    .perm-table td:first-child {
+      color: var(--accent);
+      font-weight: 600;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 12px;
+      white-space: nowrap;
+      width: 110px;
+    }
+
+    code {
+      background: var(--bg-card2);
+      color: #79c0ff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      border: 1px solid var(--border);
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      margin-top: 48px;
+    }
+    .footer-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    .footer-col-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .footer-col-val {
+      font-size: 13px;
+      color: var(--text);
+    }
+    .footer-col-val a { color: var(--accent); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    .footer-bottom a { color: var(--text-dim); }
+    .footer-bottom a:hover { color: var(--accent); }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 24px; }
+      .hero-sub { font-size: 14px; }
+      .container { padding: 24px 16px 60px; }
+      nav { padding: 10px 16px; }
+      .nav-links { display: none; }
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #484f58; }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <div class="nav-logo-icon">🎬</div>
+      CreatorFlow
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="https://nguyenanhdung.io.vn" target="_blank">Website</a>
+      <a class="nav-link" href="mailto:nguyendinhdungqd@gmail.com">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      Chrome Extension · Manifest V3
+    </div>
+    <h1>Privacy Policy</h1>
+    <p class="hero-sub">CreatorFlow – Tools for Grok, VEO &amp; AI Creators</p>
+    <div class="hero-meta">
+      <span class="chip green">✅ No data collected</span>
+      <span class="chip">📅 Last updated: May 2026</span>
+      <span class="chip">🔒 Local processing only</span>
+      <a class="chip" href="mailto:nguyendinhdungqd@gmail.com">✉ nguyendinhdungqd@gmail.com</a>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Key Statement -->
+    <div class="key-box">
+      <div class="key-box-icon">✅</div>
+      <div>
+        <div class="key-box-title">Core Data Commitment</div>
+        <p><strong>CreatorFlow does not collect, store, sell, or transmit personal data to external servers.</strong></p>
+        <p>All extension functionality runs entirely locally in the user's browser. No browsing history, prompts, account credentials, images, videos, or any personal information are ever transmitted to the developer or any third party.</p>
+      </div>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="disclaimer-box">
+      <div class="disclaimer-box-icon">⚠️</div>
+      <div>
+        <p><strong>CreatorFlow is not affiliated with, endorsed by, or connected to Google, xAI (Grok), Meta, CapCut, ByteDance, or any third-party AI platform.</strong></p>
+        <p>This is an independent productivity tool. All product names and trademarks belong to their respective owners.</p>
+      </div>
+    </div>
+
+    <!-- Section 1 -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">§ 1</span>
+        <span class="section-title">Data Collection Statement</span>
+      </div>
+      <div class="section-body">
+        <p>CreatorFlow <strong>does not collect any personally identifiable information</strong>. The extension does <strong>not</strong> collect, access, store, or transmit:</p>
+        <ul>
+          <li>Your name, email address, or account credentials</li>
+          <li>Prompts or text you enter into AI platforms</li>
+          <li>Images or videos you upload or generate</li>
+          <li>Browsing history or visited URLs</li>
+          <li>IP addresses or device identifiers</li>
+          <li>Any form of usage analytics or telemetry</li>
+        </ul>
+        <div class="callout green">
+          No data from your browser or AI sessions is ever sent to the developer or any external server.
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">§ 2</span>
+        <span class="section-title">Local Storage Only</span>
+      </div>
+      <div class="section-body">
+        <p>User settings and preferences are stored <strong>locally</strong> using Chrome's built-in <code>chrome.storage.local</code> API. This data never leaves your device. Stored data includes only:</p>
+        <ul>
+          <li>Last active tool tab (VEO, Grok, Seedance, Meta)</li>
+          <li>Download folder name and file prefix preferences</li>
+          <li>Automation configuration options (e.g. concurrent prompts, delay)</li>
+          <li>UI language preference</li>
+        </ul>
+        <p>This data is stored solely to restore your preferences between sessions. It is never read by the developer and never transmitted anywhere.</p>
+      </div>
+    </div>
+
+    <!-- Section 3 -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">§ 3</span>
+        <span class="section-title">Permissions Explained</span>
+      </div>
+      <div class="section-body">
+        <p>CreatorFlow requests only the permissions necessary for its core functionality:</p>
+        <table class="perm-table">
+          <thead><tr><th>Permission</th><th>Why It Is Needed</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>tabs</td>
+              <td>The extension may access browser tab information <strong>only to provide user-requested workflow features</strong> across supported AI websites — detecting which AI site is active to auto-switch the side panel, or reloading a tab after installation. No tab content or URLs are stored or transmitted.</td>
+            </tr>
+            <tr>
+              <td>activeTab</td>
+              <td>Allows the extension to interact with the currently open AI site tab when the user initiates an action. Used solely to automate UI interactions on the active page at the user's request.</td>
+            </tr>
+            <tr>
+              <td>storage</td>
+              <td>Saves your local preferences (folder names, settings, last-used mode) in Chrome's local storage. Data never leaves your device.</td>
+            </tr>
+            <tr>
+              <td>downloads</td>
+              <td>Enables automatic saving of AI-generated videos and images to your local device. Files are saved directly to your Downloads folder — no file content is transmitted to any server.</td>
+            </tr>
+            <tr>
+              <td>sidePanel</td>
+              <td>Displays the CreatorFlow control panel in Chrome's built-in side panel UI.</td>
+            </tr>
+            <tr>
+              <td>debugger</td>
+              <td>Used to simulate precise mouse click events on AI platform buttons that intercept standard DOM click events. <strong>No page content, credentials, or user data is read, recorded, or transmitted through this permission.</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">§ 4</span>
+        <span class="section-title">Host Permissions &amp; Supported Sites</span>
+      </div>
+      <div class="section-body">
+        <p>The extension is active <strong>only</strong> on these specific websites:</p>
+        <ul>
+          <li><strong>labs.google</strong> — Google Flow / VEO video generation</li>
+          <li><strong>grok.com</strong> — Grok / xAI image and video generation</li>
+          <li><strong>dreamina.capcut.com</strong> and <strong>jimeng.jianying.com</strong> — Seedance / Dreamina generation</li>
+          <li><strong>meta.ai</strong> — Meta AI image and video generation</li>
+        </ul>
+        <p>The extension does <strong>not</strong> run on any other websites and cannot access your general browsing activity.</p>
+      </div>
+    </div>
+
+    <!-- Section 5 -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">§ 5</span>
+        <span class="section-title">No Remote Code Execution</span>
+      </div>
+      <div class="section-body">
+        <p>All extension logic, UI components, and configuration data are <strong>bundled locally</strong> within the extension package. No JavaScript code or configuration is fetched from external servers at runtime.</p>
+        <div class="callout green">
+          The extension operates fully offline after installation. No network requests are made by the extension itself.
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 6 -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">§ 6</span>
+        <span class="section-title">No Analytics, Tracking, or Crash Reporting</span>
+      </div>
+      <div class="section-body">
+        <p>CreatorFlow contains <strong>no analytics libraries, telemetry, crash reporting, or usage tracking</strong> of any kind. The developer has no visibility into how or when you use the extension, which features you use, or what content you generate.</p>
+      </div>
+    </div>
+
+    <!-- Section 7 -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">§ 7</span>
+        <span class="section-title">No Third-Party Data Sharing</span>
+      </div>
+      <div class="section-body">
+        <p>We do not share, sell, rent, or disclose any user data to third parties — because <strong>we do not collect any user data in the first place</strong>. The extension does not integrate with any advertising networks, data brokers, or analytics services.</p>
+      </div>
+    </div>
+
+    <!-- Section 8 -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">§ 8</span>
+        <span class="section-title">Children's Privacy</span>
+      </div>
+      <div class="section-body">
+        <p>This extension is not directed at children under the age of 13. We do not knowingly collect information from children.</p>
+      </div>
+    </div>
+
+    <!-- Section 9 -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">§ 9</span>
+        <span class="section-title">Changes to This Policy</span>
+      </div>
+      <div class="section-body">
+        <p>If this Privacy Policy is updated, the revised version will be published with the extension update on the Chrome Web Store. The "Last Updated" date at the top of this page will reflect any changes. Continued use of the extension after an update constitutes acceptance of the revised policy.</p>
+      </div>
+    </div>
+
+  </div><!-- /container -->
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-col-title">Extension</div>
+          <div class="footer-col-val">CreatorFlow – Tools for Grok, VEO &amp; AI Creators</div>
+        </div>
+        <div>
+          <div class="footer-col-title">Developer</div>
+          <div class="footer-col-val">Nguyễn Dũng</div>
+        </div>
+        <div>
+          <div class="footer-col-title">Website</div>
+          <div class="footer-col-val"><a href="https://nguyenanhdung.io.vn" target="_blank">nguyenanhdung.io.vn</a></div>
+        </div>
+        <div>
+          <div class="footer-col-title">Contact</div>
+          <div class="footer-col-val"><a href="mailto:nguyendinhdungqd@gmail.com">nguyendinhdungqd@gmail.com</a></div>
+        </div>
+        <div>
+          <div class="footer-col-title">Last Updated</div>
+          <div class="footer-col-val">May 2026</div>
+        </div>
+        <div>
+          <div class="footer-col-title">Data Collection</div>
+          <div class="footer-col-val" style="color: var(--green);">✅ None — local only</div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Nguyễn Dũng · <a href="https://nguyenanhdung.io.vn" target="_blank">nguyenanhdung.io.vn</a></span>
+        <span>Made with ❤️ for AI creators</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
