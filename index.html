@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Privacy Policy for CreatorFlow – Tools for Grok, VEO & AI Creators Chrome Extension" />
-  <title>Privacy Policy – CreatorFlow</title>
+  <meta name="description" content="CreatorFlow – Tools for Grok, VEO & AI Creators Chrome Extension. User Guide & Privacy Policy." />
+  <title>CreatorFlow – User Guide & Privacy Policy</title>
   <style>
     :root {
       --bg: #0d1117;
@@ -79,6 +79,35 @@
       transition: color 0.15s, background 0.15s;
     }
     .nav-link:hover { color: var(--text); background: var(--bg-card2); }
+    .nav-link.active { color: var(--accent); background: var(--bg-card2); }
+
+    /* ── Page tabs ── */
+    .page-tabs {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      padding: 0 24px;
+      gap: 0;
+    }
+    .page-tab {
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      text-decoration: none;
+      transition: color 0.15s, border-color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .page-tab:hover { color: var(--text); }
+    .page-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ── Page sections ── */
+    .page-section { display: none; }
+    .page-section.active { display: block; }
 
     /* ── Hero ── */
     .hero {
@@ -306,6 +335,73 @@
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
+    /* ── User Guide section ── */
+    .guide-hero {
+      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 24px 32px;
+      text-align: center;
+    }
+    .guide-hero h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .guide-hero p { color: var(--text-muted); font-size: 15px; margin-bottom: 28px; }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+    .tool-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 20px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .tool-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .tool-card-icon { font-size: 32px; }
+    .tool-card-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .tool-card-site {
+      font-size: 12px;
+      color: var(--text-dim);
+      font-family: "SFMono-Regular", Consolas, monospace;
+    }
+    .tool-card-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+    .tool-card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: auto;
+    }
+    .tool-card:hover .tool-card-badge { border-color: var(--accent); color: var(--accent); }
+
     /* ── Footer ── */
     footer {
       background: var(--bg-card);
@@ -374,10 +470,71 @@
       CreatorFlow
     </a>
     <div class="nav-links">
-      <a class="nav-link" href="https://nguyenanhdung.io.vn" target="_blank">Website</a>
-      <a class="nav-link" href="mailto:nguyendinhdungqd@gmail.com">Contact</a>
+      <a class="nav-link active" href="#" onclick="showPage('guide');return false;">📖 User Guide</a>
+      <a class="nav-link" href="#" onclick="showPage('privacy');return false;">🔒 Privacy Policy</a>
+      <a class="nav-link" href="https://nguyenanhdung.io.vn" target="_blank">🌐 Website</a>
+      <a class="nav-link" href="mailto:nguyendinhdungqd@gmail.com">✉ Contact</a>
     </div>
   </nav>
+
+  <!-- Page Tabs -->
+  <div class="page-tabs">
+    <a class="page-tab active" id="ptab-guide" href="#" onclick="showPage('guide');return false;">📖 User Guide</a>
+    <a class="page-tab" id="ptab-privacy" href="#" onclick="showPage('privacy');return false;">🔒 Privacy Policy</a>
+  </div>
+
+  <!-- ═══ USER GUIDE PAGE ═══ -->
+  <div class="page-section active" id="page-guide">
+
+    <div class="guide-hero">
+      <div class="hero-badge" style="margin-bottom:16px">
+        <div class="hero-badge-dot"></div>
+        CreatorFlow – Chrome Extension
+      </div>
+      <h2>📖 User Guide</h2>
+      <p>Select a tool below to open its full documentation</p>
+    </div>
+
+    <div class="tool-grid">
+
+      <a class="tool-card" href="user-guide.html#tab=veo" target="_blank">
+        <div class="tool-card-icon">🎬</div>
+        <div class="tool-card-name">VEO – Google Flow</div>
+        <div class="tool-card-site">labs.google/fx/tools/flow</div>
+        <div class="tool-card-desc">Batch generate videos & images on Google Flow AI. 5 modes including Text-to-Video, Image-to-Video, Components-to-Video.</div>
+        <div class="tool-card-badge">5 Modes · Veo 3.1 · Veo 2 →</div>
+      </a>
+
+      <a class="tool-card" href="user-guide.html#tab=grok" target="_blank">
+        <div class="tool-card-icon">⚡</div>
+        <div class="tool-card-name">Grok – xAI</div>
+        <div class="tool-card-site">grok.com/imagine</div>
+        <div class="tool-card-desc">Automate batch generation on Grok. Frame-to-Video, Ingredients to Video, auto-upscale & download.</div>
+        <div class="tool-card-badge">5 Modes · Grok 3.1 · Grok 2 →</div>
+      </a>
+
+      <a class="tool-card" href="user-guide.html#tab=seedance" target="_blank">
+        <div class="tool-card-icon">🌱</div>
+        <div class="tool-card-name">Seedance – Dreamina</div>
+        <div class="tool-card-site">dreamina.capcut.com</div>
+        <div class="tool-card-desc">Automate Dreamina / Jimeng. Video up to 2K 60FPS, image chaining, concat video, expanded aspect ratios.</div>
+        <div class="tool-card-badge">5 Modes · Up to 2K 60FPS →</div>
+      </a>
+
+      <a class="tool-card" href="user-guide.html#tab=meta" target="_blank">
+        <div class="tool-card-icon">🔵</div>
+        <div class="tool-card-name">Meta AI</div>
+        <div class="tool-card-site">meta.ai / meta.ai/media</div>
+        <div class="tool-card-desc">Batch generate videos and images on Meta AI. Text-to-Video, Image-to-Video, Text-to-Image, Image-to-Image.</div>
+        <div class="tool-card-badge">4 Modes · Auto Download →</div>
+      </a>
+
+    </div>
+
+  </div><!-- /page-guide -->
+
+  <!-- ═══ PRIVACY POLICY PAGE ═══ -->
+  <div class="page-section" id="page-privacy">
 
   <!-- Hero -->
   <div class="hero">
@@ -574,6 +731,8 @@
 
   </div><!-- /container -->
 
+  </div><!-- /page-privacy -->
+
   <!-- Footer -->
   <footer>
     <div class="footer-inner">
@@ -609,6 +768,33 @@
       </div>
     </div>
   </footer>
+  <script>
+    function showPage(page) {
+      // Update page sections
+      document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+      document.getElementById('page-' + page).classList.add('active');
+
+      // Update page tabs
+      document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('ptab-' + page).classList.add('active');
+
+      // Update nav links
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+      const navMap = { guide: 0, privacy: 1 };
+      const navLinks = document.querySelectorAll('.nav-link');
+      if (navLinks[navMap[page]]) navLinks[navMap[page]].classList.add('active');
+
+      // Update URL hash without reload
+      history.replaceState(null, '', '#' + page);
+    }
+
+    // On load, check hash
+    (function() {
+      const hash = window.location.hash.replace('#', '');
+      if (hash === 'privacy') showPage('privacy');
+      else showPage('guide');
+    })();
+  </script>
 
 </body>
 </html>
