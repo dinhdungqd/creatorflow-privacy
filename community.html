@@ -3,20 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Dũng Nguyễn – CreatorFlow, công cụ hỗ trợ sáng tạo AI." />
-  <title>Dũng Nguyễn – CreatorFlow</title>
+  <title>Cộng đồng – Dũng Nguyễn</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0a0a0f;
-      color: #e8eaed;
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --surface2: #1a1a24;
+      --border: rgba(255,255,255,0.08);
+      --text: #e8e8f0;
+      --text-muted: #8888aa;
+      --accent: #7c6af7;
+      --accent2: #4f8ef7;
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* ── Particle background ── */
+    /* ── Particle canvas ── */
     #particles {
       position: fixed;
       inset: 0;
@@ -28,372 +46,674 @@
     .page {
       position: relative;
       z-index: 1;
-      max-width: 680px;
+      max-width: 760px;
       margin: 0 auto;
-      padding: 40px 16px 80px;
+      padding: 32px 20px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
-    a { text-decoration: none; }
+    /* ── Card base ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
 
-    /* ── Profile card ── */
-    .profile-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 24px 20px;
+    /* ── Profile ── */
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+      padding: 32px 24px;
+    }
+
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c6af7 0%, #4f8ef7 100%);
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 16px;
-      backdrop-filter: blur(10px);
+      justify-content: center;
+      font-size: 40px;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 4px rgba(124,106,247,0.2), 0 8px 32px rgba(124,106,247,0.3);
     }
-    .avatar {
-      width: 64px; height: 64px;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.2);
-      background: linear-gradient(135deg, #7c3aed, #2563eb);
-      display: flex; align-items: center; justify-content: center;
+
+    .profile-name {
       font-size: 28px;
-      flex-shrink: 0;
-      overflow: hidden;
-    }
-    .avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .profile-info { flex: 1; }
-    .profile-name { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 2px; }
-    .profile-handle { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
-    .profile-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-    .btn-outline {
-      display: inline-flex; align-items: center; gap: 5px;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 8px; padding: 5px 12px;
-      font-size: 12px; color: rgba(255,255,255,0.7);
-      background: rgba(255,255,255,0.05);
-      cursor: pointer; transition: all 0.15s;
-    }
-    .btn-outline:hover { border-color: rgba(255,255,255,0.4); color: #fff; background: rgba(255,255,255,0.1); }
-    .btn-green {
-      display: inline-flex; align-items: center; gap: 5px;
-      border: 1px solid #16a34a;
-      border-radius: 8px; padding: 5px 12px;
-      font-size: 12px; color: #4ade80;
-      background: rgba(22,163,74,0.15);
-      cursor: pointer; transition: all 0.15s;
-    }
-    .btn-green:hover { background: rgba(22,163,74,0.25); }
-
-    /* ── Section ── */
-    .section {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 16px;
-      backdrop-filter: blur(10px);
-    }
-    .section-label {
-      font-size: 13px; font-weight: 600;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 14px;
-      display: flex; align-items: center; gap: 6px;
-    }
-
-    /* ── FAQ ── */
-    .faq-item {
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      padding: 12px 0;
-    }
-    .faq-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .faq-item:first-child { padding-top: 0; }
-    .faq-q {
-      display: flex; align-items: center; justify-content: space-between;
-      cursor: pointer; gap: 12px;
-      font-size: 14px; color: rgba(255,255,255,0.85);
-      user-select: none;
-    }
-    .faq-q:hover { color: #fff; }
-    .faq-chevron { color: rgba(255,255,255,0.3); font-size: 11px; flex-shrink: 0; transition: transform 0.2s; }
-    .faq-item.open .faq-chevron { transform: rotate(180deg); color: #a78bfa; }
-    .faq-item.open .faq-q { color: #a78bfa; }
-    .faq-a {
-      display: none; margin-top: 10px;
-      font-size: 13px; color: rgba(255,255,255,0.5);
-      line-height: 1.7;
-    }
-    .faq-item.open .faq-a { display: block; }
-
-    /* ── Extension list ── */
-    .ext-item {
-      display: flex; align-items: center; gap: 14px;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-    }
-    .ext-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .ext-item:first-child { padding-top: 0; }
-    .ext-icon {
-      width: 44px; height: 44px; border-radius: 10px;
-      background: linear-gradient(135deg, #7c3aed, #2563eb);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; flex-shrink: 0;
-      border: 1px solid rgba(255,255,255,0.1);
-      overflow: hidden;
-    }
-    .ext-icon img { width: 100%; height: 100%; object-fit: cover; }
-    .ext-info { flex: 1; min-width: 0; }
-    .ext-name { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 2px; }
-    .ext-desc { font-size: 12px; color: rgba(255,255,255,0.45); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .btn-install {
-      flex-shrink: 0;
-      background: #2563eb;
+      font-weight: 700;
+      letter-spacing: -0.5px;
       color: #fff;
-      font-size: 12px; font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 8px;
-      transition: background 0.15s;
-      white-space: nowrap;
     }
-    .btn-install:hover { background: #1d4ed8; }
+
+    .profile-handle {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-top: -8px;
+    }
+
+    .profile-bio {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 480px;
+      line-height: 1.65;
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 4px;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-action:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── Section heading ── */
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
 
     /* ── Community buttons ── */
     .community-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 12px;
     }
-    .community-btn {
-      border-radius: 12px;
-      padding: 16px 14px;
-      display: flex; align-items: center; gap: 10px;
-      font-size: 13px; font-weight: 600; color: #fff;
-      transition: opacity 0.15s, transform 0.15s;
-      cursor: pointer;
-    }
-    .community-btn:hover { opacity: 0.88; transform: translateY(-1px); }
-    .community-btn .cb-icon { font-size: 22px; flex-shrink: 0; }
-    .community-btn .cb-text { font-size: 13px; font-weight: 600; }
-    .cb-discord  { background: linear-gradient(135deg, #5865f2, #4752c4); }
-    .cb-telegram { background: linear-gradient(135deg, #229ed9, #1a7fb5); }
-    .cb-youtube  { background: linear-gradient(135deg, #ff0000, #cc0000); }
-    .cb-zalo     { background: linear-gradient(135deg, #0068ff, #0052cc); }
-    .cb-email    { background: linear-gradient(135deg, #374151, #1f2937); border: 1px solid rgba(255,255,255,0.1); }
-    .cb-website  { background: linear-gradient(135deg, #059669, #047857); }
 
-    /* ── Resource cards ── */
-    .resource-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .resource-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 10px; padding: 14px;
-      display: flex; flex-direction: column; gap: 5px;
-      transition: border-color 0.2s, background 0.2s;
+    .community-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      height: 60px;
+      padding: 0 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      transition: transform 0.18s, box-shadow 0.18s, filter 0.18s;
+      position: relative;
+      overflow: hidden;
     }
-    .resource-card:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.07); }
-    .resource-card-icon { font-size: 18px; }
-    .resource-card-title { font-size: 13px; font-weight: 600; color: #fff; }
-    .resource-card-desc { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+    .community-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0);
+      transition: background 0.18s;
+      border-radius: inherit;
+    }
+
+    .community-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+
+    .community-btn:hover::after {
+      background: rgba(255,255,255,0.06);
+    }
+
+    .community-btn:active {
+      transform: translateY(0);
+    }
+
+    .community-btn .btn-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .community-btn .btn-label {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .community-btn .btn-label span {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .community-btn .btn-label small {
+      font-size: 12px;
+      font-weight: 400;
+      opacity: 0.8;
+    }
+
+    .btn-discord {
+      background: linear-gradient(135deg, #5865f2 0%, #4752c4 100%);
+      box-shadow: 0 4px 20px rgba(88,101,242,0.35);
+    }
+
+    .btn-telegram {
+      background: linear-gradient(135deg, #229ed9 0%, #1a7fb5 100%);
+      box-shadow: 0 4px 20px rgba(34,158,217,0.35);
+    }
+
+    .btn-youtube {
+      background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+      box-shadow: 0 4px 20px rgba(255,0,0,0.3);
+    }
+
+    .btn-zalo {
+      background: linear-gradient(135deg, #0068ff 0%, #0050cc 100%);
+      box-shadow: 0 4px 20px rgba(0,104,255,0.35);
+    }
+
+    /* ── Extension card ── */
+    .ext-card {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .ext-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #7c6af7 0%, #4f8ef7 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(124,106,247,0.4);
+    }
+
+    .ext-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .ext-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ext-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .btn-install {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 18px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .btn-install:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    /* ── FAQ ── */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .faq-item {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 600;
+      text-align: left;
+      padding: 16px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: color 0.2s;
+    }
+
+    .faq-question:hover {
+      color: var(--accent);
+    }
+
+    .faq-chevron {
+      font-size: 18px;
+      transition: transform 0.25s;
+      flex-shrink: 0;
+      color: var(--text-muted);
+    }
+
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      padding: 0 20px;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 200px;
+      padding: 0 20px 16px;
+    }
+
+    /* ── Resources grid ── */
+    .resources-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .resource-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 18px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 600;
+      transition: border-color 0.2s, transform 0.15s, background 0.2s;
+    }
+
+    .resource-card:hover {
+      border-color: var(--accent);
+      background: rgba(124,106,247,0.08);
+      transform: translateY(-2px);
+    }
+
+    .resource-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+    }
 
     /* ── Footer ── */
     .footer {
-      text-align: center; margin-top: 24px;
-      font-size: 12px; color: rgba(255,255,255,0.25);
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      padding-top: 8px;
     }
 
-    @media (max-width: 480px) {
-      .profile-card { flex-direction: column; text-align: center; }
-      .profile-actions { justify-content: center; }
-      .community-grid { grid-template-columns: 1fr; }
-      .resource-grid { grid-template-columns: 1fr; }
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 520px) {
+      .community-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .resources-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ext-card {
+        flex-wrap: wrap;
+      }
+
+      .btn-install {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .profile-name {
+        font-size: 24px;
+      }
     }
   </style>
 </head>
 <body>
 
-<!-- Particle canvas -->
 <canvas id="particles"></canvas>
 
 <div class="page">
 
-  <!-- Profile -->
-  <div class="profile-card">
-    <div class="avatar">🎬</div>
-    <div class="profile-info">
-      <div class="profile-name">Dũng Nguyễn</div>
-      <div class="profile-handle">@dinhdungqd</div>
-      <div class="profile-actions">
-        <a class="btn-outline" href="mailto:nguyendinhdungqd@gmail.com">✉ Hỗ trợ</a>
-        <a class="btn-green" href="community.html#changelog">🕐 Lịch sử cập nhật</a>
-      </div>
+  <!-- ── Profile ── -->
+  <div class="card profile">
+    <div class="avatar">🧑‍💻</div>
+    <div class="profile-name">Dũng Nguyễn</div>
+    <div class="profile-handle">@dinhdungqd</div>
+    <p class="profile-bio">Xây dựng công cụ hỗ trợ sáng tạo nội dung AI. Nếu bạn gặp lỗi hoặc có góp ý, hãy liên hệ mình nhé!</p>
+    <div class="profile-actions">
+      <a href="mailto:nguyendinhdungqd@gmail.com" class="btn-action btn-primary">
+        ✉️ Email mình
+      </a>
+      <a href="https://nguyenanhdung.io.vn" target="_blank" rel="noopener" class="btn-action btn-outline">
+        🌐 Website
+      </a>
     </div>
   </div>
 
-  <!-- FAQ -->
-  <div class="section">
-    <div class="section-label">❓ Câu hỏi thường gặp</div>
+  <!-- ── Community ── -->
+  <div class="card">
+    <div class="section-title">🌐 Cộng đồng</div>
+    <div class="community-grid">
 
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span>Extension không chạy được trên Chrome?</span>
-        <span class="faq-chevron">▼</span>
-      </div>
-      <div class="faq-a">Đảm bảo bạn đang ở đúng trang được hỗ trợ (labs.google, grok.com/imagine, dreamina.capcut.com, meta.ai). Thử refresh trang và mở lại side panel. Nếu vẫn lỗi, liên hệ qua Discord hoặc Telegram.</div>
+      <a href="#discord" class="community-btn btn-discord">
+        <span class="btn-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+          </svg>
+        </span>
+        <div class="btn-label">
+          <span>Discord</span>
+          <small>Tham gia cộng đồng</small>
+        </div>
+      </a>
+
+      <a href="#telegram" class="community-btn btn-telegram">
+        <span class="btn-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+          </svg>
+        </span>
+        <div class="btn-label">
+          <span>Telegram</span>
+          <small>Kênh Telegram của mình</small>
+        </div>
+      </a>
+
+      <a href="#youtube" class="community-btn btn-youtube">
+        <span class="btn-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </span>
+        <div class="btn-label">
+          <span>YouTube</span>
+          <small>Kênh YouTube của mình</small>
+        </div>
+      </a>
+
+      <a href="#zalo" class="community-btn btn-zalo">
+        <span class="btn-icon">💬</span>
+        <div class="btn-label">
+          <span>Zalo</span>
+          <small>Tham gia nhóm Zalo</small>
+        </div>
+      </a>
+
     </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span>Extension dừng chạy khi chuyển tab hoặc thu nhỏ cửa sổ?</span>
-        <span class="faq-chevron">▼</span>
-      </div>
-      <div class="faq-a">Đây là hành vi bình thường của Chrome khi throttle timer ở tab ẩn. Hãy giữ tab AI đang active hoặc đặt delay giữa các prompt đủ lớn (30s+).</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span>Video/ảnh không tự download được?</span>
-        <span class="faq-chevron">▼</span>
-      </div>
-      <div class="faq-a">Vào Chrome Settings → Downloads → tắt "Ask where to save each file before downloading". Sau đó kiểm tra lại cài đặt Auto Download Quality trong Settings của extension.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span>Các tiện ích có chạy được trên điện thoại không?</span>
-        <span class="faq-chevron">▼</span>
-      </div>
-      <div class="faq-a">Không. Extension Chrome chỉ chạy trên trình duyệt desktop (Chrome, Edge, Brave, Cốc Cốc). Không hỗ trợ mobile.</div>
-    </div>
-
   </div>
 
-  <!-- Extensions -->
-  <div class="section">
-    <div class="section-label">🧩 Tiện ích</div>
-
-    <div class="ext-item">
+  <!-- ── Extension ── -->
+  <div class="card">
+    <div class="section-title">🧩 Extension</div>
+    <div class="ext-card">
       <div class="ext-icon">🎬</div>
       <div class="ext-info">
-        <div class="ext-name">CreatorFlow</div>
-        <div class="ext-desc">Google Flow, Grok, Dreamina &amp; Meta AI</div>
+        <div class="ext-name">CreatorFlow – Tools for Grok, VEO &amp; AI Creators</div>
+        <div class="ext-desc">Công cụ hỗ trợ sáng tạo AI trên Google Flow, Grok, Dreamina và Meta AI</div>
       </div>
-      <a class="btn-install" href="https://dinhdungqd.github.io/creatorflow-privacy/" target="_blank">Xem thêm</a>
-    </div>
-
-  </div>
-
-  <!-- Community -->
-  <div class="section">
-    <div class="section-label">🔗 Kết nối</div>
-    <p style="font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:14px">Nếu bạn dùng sản phẩm chưa đúng ý hoặc gặp lỗi, báo cho mình để mình sửa ngay.</p>
-    <div class="community-grid">
-      <a class="community-btn cb-discord" href="https://discord.gg/" target="_blank">
-        <span class="cb-icon">💬</span>
-        <span class="cb-text">Tham gia Discord của mình</span>
-      </a>
-      <a class="community-btn cb-telegram" href="https://t.me/" target="_blank">
-        <span class="cb-icon">✈️</span>
-        <span class="cb-text">Tham gia kênh Telegram của mình</span>
-      </a>
-      <a class="community-btn cb-youtube" href="https://youtube.com/" target="_blank">
-        <span class="cb-icon">▶️</span>
-        <span class="cb-text">Kênh YouTube của mình</span>
-      </a>
-      <a class="community-btn cb-zalo" href="https://zalo.me/" target="_blank">
-        <span class="cb-icon">💙</span>
-        <span class="cb-text">Tham gia nhóm Zalo của mình</span>
-      </a>
-      <a class="community-btn cb-email" href="mailto:nguyendinhdungqd@gmail.com">
-        <span class="cb-icon">✉️</span>
-        <span class="cb-text">nguyendinhdungqd@gmail.com</span>
-      </a>
-      <a class="community-btn cb-website" href="https://nguyenanhdung.io.vn" target="_blank">
-        <span class="cb-icon">🌐</span>
-        <span class="cb-text">nguyenanhdung.io.vn</span>
+      <a href="https://dinhdungqd.github.io/creatorflow-privacy/" target="_blank" rel="noopener" class="btn-install">
+        ⬇️ Cài đặt
       </a>
     </div>
   </div>
 
-  <!-- Resources -->
-  <div class="section">
-    <div class="section-label">📚 Tài nguyên</div>
-    <div class="resource-grid">
-      <a class="resource-card" href="user-guide.html" target="_blank">
-        <div class="resource-card-icon">📖</div>
-        <div class="resource-card-title">User Guide</div>
-        <div class="resource-card-desc">Hướng dẫn sử dụng đầy đủ</div>
-      </a>
-      <a class="resource-card" href="privacy.html" target="_blank">
-        <div class="resource-card-icon">🔒</div>
-        <div class="resource-card-title">Privacy Policy</div>
-        <div class="resource-card-desc">Chính sách quyền riêng tư</div>
-      </a>
-      <a class="resource-card" href="index.html" target="_blank">
-        <div class="resource-card-icon">📋</div>
-        <div class="resource-card-title">Trang chính</div>
-        <div class="resource-card-desc">Privacy &amp; User Guide</div>
-      </a>
-      <a class="resource-card" href="https://nguyenanhdung.io.vn" target="_blank">
-        <div class="resource-card-icon">🌐</div>
-        <div class="resource-card-title">Website</div>
-        <div class="resource-card-desc">nguyenanhdung.io.vn</div>
-      </a>
+  <!-- ── FAQ ── -->
+  <div class="card">
+    <div class="section-title">❓ Câu hỏi thường gặp</div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Extension không chạy được, phải làm sao?
+          <span class="faq-chevron">⌄</span>
+        </button>
+        <div class="faq-answer">Đảm bảo bạn đang ở đúng trang được hỗ trợ. Thử refresh trang và mở lại side panel.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Extension dừng chạy khi chuyển tab?
+          <span class="faq-chevron">⌄</span>
+        </button>
+        <div class="faq-answer">Giữ tab AI đang active, đặt delay 30s+ giữa các prompt.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Video/ảnh không tự download?
+          <span class="faq-chevron">⌄</span>
+        </button>
+        <div class="faq-answer">Chrome Settings → Downloads → tắt "Ask where to save each file".</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Có thu thập dữ liệu không?
+          <span class="faq-chevron">⌄</span>
+        </button>
+        <div class="faq-answer">Không. Tất cả chạy local, không gửi dữ liệu ra ngoài.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Chạy được trên điện thoại không?
+          <span class="faq-chevron">⌄</span>
+        </button>
+        <div class="faq-answer">Không, chỉ hỗ trợ desktop Chrome/Edge/Brave.</div>
+      </div>
+
     </div>
   </div>
 
+  <!-- ── Resources ── -->
+  <div class="card">
+    <div class="section-title">📚 Tài nguyên</div>
+    <div class="resources-grid">
+
+      <a href="user-guide.html" class="resource-card">
+        <span class="resource-icon">📖</span>
+        User Guide
+      </a>
+
+      <a href="privacy.html" class="resource-card">
+        <span class="resource-icon">🔒</span>
+        Privacy Policy
+      </a>
+
+      <a href="index.html" class="resource-card">
+        <span class="resource-icon">🏠</span>
+        Trang chính
+      </a>
+
+      <a href="https://nguyenanhdung.io.vn" target="_blank" rel="noopener" class="resource-card">
+        <span class="resource-icon">🌐</span>
+        Website
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
   <div class="footer">
-    © 2026 Dũng Nguyễn · Made with ❤️ for AI creators
+    <p>© 2025 Dũng Nguyễn · <a href="mailto:nguyendinhdungqd@gmail.com">nguyendinhdungqd@gmail.com</a></p>
+    <p style="margin-top:6px;">Made with ❤️ for the AI creator community</p>
   </div>
 
 </div>
 
 <script>
-  // ── FAQ toggle ──
-  function toggleFaq(el) {
-    el.parentElement.classList.toggle('open');
-  }
+  /* ── Particle animation ── */
+  (function () {
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let W, H, particles = [];
 
-  // ── Particle background ──
-  const canvas = document.getElementById('particles');
-  const ctx = canvas.getContext('2d');
-  let W, H, dots = [];
+    const COLORS = [
+      'rgba(124,106,247,',
+      'rgba(79,142,247,',
+      'rgba(160,120,255,',
+      'rgba(100,160,255,',
+    ];
 
-  function resize() {
-    W = canvas.width  = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
 
-  function initDots() {
-    dots = [];
-    const count = Math.floor((W * H) / 18000);
-    for (let i = 0; i < count; i++) {
-      dots.push({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        r: Math.random() * 1.5 + 0.3,
-        vx: (Math.random() - 0.5) * 0.15,
-        vy: (Math.random() - 0.5) * 0.15,
-        a: Math.random() * 0.5 + 0.15
-      });
+    function rand(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function createParticle() {
+      return {
+        x: rand(0, W),
+        y: rand(0, H),
+        r: rand(1.5, 3.5),
+        vx: rand(-0.3, 0.3),
+        vy: rand(-0.4, -0.1),
+        alpha: rand(0.3, 0.8),
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        life: rand(0.003, 0.007),
+        fade: rand(0.3, 0.8),
+        fadeDir: 1,
+      };
+    }
+
+    function init() {
+      resize();
+      particles = [];
+      for (let i = 0; i < 90; i++) {
+        const p = createParticle();
+        p.y = rand(0, H); // spread vertically on init
+        particles.push(p);
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+
+        // Pulse alpha
+        p.fade += p.life * p.fadeDir;
+        if (p.fade > 0.85 || p.fade < 0.15) p.fadeDir *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color + p.fade + ')';
+        ctx.fill();
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Wrap around
+        if (p.y < -10) p.y = H + 10;
+        if (p.x < -10) p.x = W + 10;
+        if (p.x > W + 10) p.x = -10;
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', () => {
+      resize();
+    });
+
+    init();
+    draw();
+  })();
+
+  /* ── FAQ accordion ── */
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+
+    // Open clicked if it was closed
+    if (!isOpen) {
+      item.classList.add('open');
     }
   }
-
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    dots.forEach(d => {
-      d.x += d.vx; d.y += d.vy;
-      if (d.x < 0) d.x = W;
-      if (d.x > W) d.x = 0;
-      if (d.y < 0) d.y = H;
-      if (d.y > H) d.y = 0;
-      ctx.beginPath();
-      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(180,160,255,${d.a})`;
-      ctx.fill();
-    });
-    requestAnimationFrame(draw);
-  }
-
-  resize();
-  initDots();
-  draw();
-  window.addEventListener('resize', () => { resize(); initDots(); });
 </script>
+
 </body>
 </html>
