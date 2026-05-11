@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Dũng Nguyễn – CreatorFlow, công cụ hỗ trợ sáng tạo AI trên Google Flow, Grok, Dreamina và Meta AI." />
+  <title>Dũng Nguyễn – CreatorFlow</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --bg-card: #161b22;
+      --bg-card2: #21262d;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --text-dim: #6e7681;
+      --accent: #58a6ff;
+      --green: #3fb950;
+      --green-bg: #0d2119;
+      --green-border: #1f6335;
+      --purple: #bc8cff;
+      --orange: #ffa657;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Layout ── */
+    .page {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* ── Profile ── */
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .avatar {
+      width: 96px; height: 96px;
+      border-radius: 50%;
+      border: 3px solid var(--border);
+      background: linear-gradient(135deg, #58a6ff, #3fb950);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 40px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-name { font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .profile-handle { font-size: 14px; color: var(--text-muted); margin-bottom: 12px; }
+    .profile-bio { font-size: 14px; color: var(--text-muted); max-width: 420px; line-height: 1.6; margin-bottom: 16px; }
+    .profile-badges { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--bg-card2); border: 1px solid var(--border);
+      border-radius: 20px; padding: 4px 12px;
+      font-size: 12px; color: var(--text-muted);
+    }
+    .badge.green { border-color: var(--green-border); color: var(--green); background: var(--green-bg); }
+
+    /* ── Section title ── */
+    .section-title {
+      font-size: 12px; font-weight: 700; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.6px;
+      margin-bottom: 12px; padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Extension cards ── */
+    .ext-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+    .ext-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: border-color 0.2s;
+    }
+    .ext-card:hover { border-color: var(--accent); }
+    .ext-icon { font-size: 28px; flex-shrink: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: var(--bg-card2); border-radius: 10px; border: 1px solid var(--border); }
+    .ext-info { flex: 1; min-width: 0; }
+    .ext-name { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .ext-desc { font-size: 13px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ext-install {
+      flex-shrink: 0;
+      background: var(--accent);
+      color: #0d1117;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: opacity 0.15s;
+      white-space: nowrap;
+    }
+    .ext-install:hover { opacity: 0.85; text-decoration: none; }
+    .ext-install.coming {
+      background: var(--bg-card2);
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      cursor: default;
+    }
+
+    /* ── FAQ ── */
+    .faq-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .faq-q {
+      padding: 13px 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text);
+      user-select: none;
+      transition: background 0.15s;
+    }
+    .faq-q:hover { background: var(--bg-card2); }
+    .faq-chevron { color: var(--text-dim); font-size: 12px; flex-shrink: 0; transition: transform 0.2s; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-a {
+      display: none;
+      padding: 0 16px 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ── Community links ── */
+    .community-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+    .community-link {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .community-link:hover { border-color: var(--accent); transform: translateX(3px); text-decoration: none; }
+    .community-icon { font-size: 22px; flex-shrink: 0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: var(--bg-card2); border-radius: 8px; border: 1px solid var(--border); }
+    .community-info { flex: 1; }
+    .community-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .community-desc { font-size: 12px; color: var(--text-muted); }
+    .community-arrow { color: var(--text-dim); font-size: 14px; }
+
+    /* ── Support / Update history ── */
+    .support-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 32px; }
+    @media (max-width: 480px) { .support-grid { grid-template-columns: 1fr; } }
+    .support-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      text-decoration: none;
+      display: flex; flex-direction: column; gap: 6px;
+      transition: border-color 0.2s;
+    }
+    .support-card:hover { border-color: var(--accent); text-decoration: none; }
+    .support-card-icon { font-size: 20px; }
+    .support-card-title { font-size: 14px; font-weight: 600; color: var(--text); }
+    .support-card-desc { font-size: 12px; color: var(--text-muted); }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-dim);
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .footer a { color: var(--text-dim); }
+    .footer a:hover { color: var(--accent); }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      .page { padding: 24px 16px 60px; }
+      .ext-card { flex-wrap: wrap; }
+      .ext-install { width: 100%; text-align: center; }
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Profile -->
+  <div class="profile">
+    <div class="avatar">🎬</div>
+    <div class="profile-name">Dũng Nguyễn</div>
+    <div class="profile-handle">@dinhdungqd</div>
+    <div class="profile-bio">Xây dựng công cụ hỗ trợ sáng tạo nội dung AI. Nếu bạn gặp lỗi hoặc có góp ý, hãy liên hệ mình nhé!</div>
+    <div class="profile-badges">
+      <span class="badge green">✅ Không thu thập dữ liệu</span>
+      <span class="badge">🔒 Chạy hoàn toàn local</span>
+      <span class="badge">🌐 <a href="https://nguyenanhdung.io.vn" target="_blank" style="color:inherit">nguyenanhdung.io.vn</a></span>
+    </div>
+  </div>
+
+  <!-- Extensions -->
+  <div class="section-title">🧩 Tiện ích Chrome</div>
+  <div class="ext-list">
+
+    <div class="ext-card">
+      <div class="ext-icon">🎬</div>
+      <div class="ext-info">
+        <div class="ext-name">CreatorFlow</div>
+        <div class="ext-desc">Công cụ cho Google Flow, Grok, Dreamina &amp; Meta AI</div>
+      </div>
+      <a class="ext-install" href="https://dinhdungqd.github.io/creatorflow-privacy/" target="_blank">Xem thêm</a>
+    </div>
+
+  </div>
+
+  <!-- FAQ -->
+  <div class="section-title">❓ Câu hỏi thường gặp</div>
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Extension không chạy được, phải làm sao?</span>
+        <span class="faq-chevron">▼</span>
+      </div>
+      <div class="faq-a">Hãy đảm bảo bạn đang ở đúng trang web được hỗ trợ (labs.google, grok.com/imagine, dreamina.capcut.com, meta.ai). Thử refresh trang và mở lại side panel. Nếu vẫn lỗi, hãy liên hệ qua Discord hoặc Telegram.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Extension dừng chạy khi chuyển tab hoặc thu nhỏ cửa sổ?</span>
+        <span class="faq-chevron">▼</span>
+      </div>
+      <div class="faq-a">Đây là hành vi bình thường của Chrome khi throttle timer ở tab ẩn. Hãy giữ tab AI đang active hoặc đặt delay giữa các prompt đủ lớn (30s+) để giảm ảnh hưởng.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Video/ảnh không tự download được?</span>
+        <span class="faq-chevron">▼</span>
+      </div>
+      <div class="faq-a">Vào Chrome Settings → Downloads → tắt "Ask where to save each file before downloading". Sau đó kiểm tra lại cài đặt Auto Download Quality trong tab Settings của extension.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Extension có thu thập dữ liệu của tôi không?</span>
+        <span class="faq-chevron">▼</span>
+      </div>
+      <div class="faq-a">Không. CreatorFlow không thu thập, lưu trữ hay gửi bất kỳ dữ liệu cá nhân nào ra ngoài. Tất cả xử lý diễn ra hoàn toàn trên máy của bạn. Xem chi tiết tại <a href="privacy.html" target="_blank">Privacy Policy</a>.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Màn hình bị zoom out khi đang chạy?</span>
+        <span class="faq-chevron">▼</span>
+      </div>
+      <div class="faq-a">Đây là tính năng tự động của extension để định vị chính xác các nút trên trang. Không điều chỉnh zoom thủ công trong khi extension đang chạy.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Có chạy được trên điện thoại không?</span>
+        <span class="faq-chevron">▼</span>
+      </div>
+      <div class="faq-a">Không. Extension Chrome chỉ chạy trên trình duyệt desktop (Chrome, Edge, Brave, Cốc Cốc). Không hỗ trợ mobile.</div>
+    </div>
+
+  </div>
+
+  <!-- Community -->
+  <div class="section-title">🔗 Kết nối cộng đồng</div>
+  <div class="community-list">
+
+    <a class="community-link" href="https://discord.gg/" target="_blank">
+      <div class="community-icon">💬</div>
+      <div class="community-info">
+        <div class="community-name">Discord</div>
+        <div class="community-desc">Tham gia cộng đồng, hỏi đáp và nhận hỗ trợ trực tiếp</div>
+      </div>
+      <span class="community-arrow">→</span>
+    </a>
+
+    <a class="community-link" href="https://t.me/" target="_blank">
+      <div class="community-icon">✈️</div>
+      <div class="community-info">
+        <div class="community-name">Telegram</div>
+        <div class="community-desc">Nhận thông báo cập nhật và tin tức mới nhất</div>
+      </div>
+      <span class="community-arrow">→</span>
+    </a>
+
+    <a class="community-link" href="https://zalo.me/" target="_blank">
+      <div class="community-icon">💙</div>
+      <div class="community-info">
+        <div class="community-name">Zalo</div>
+        <div class="community-desc">Nhóm Zalo hỗ trợ tiếng Việt</div>
+      </div>
+      <span class="community-arrow">→</span>
+    </a>
+
+    <a class="community-link" href="https://youtube.com/" target="_blank">
+      <div class="community-icon">▶️</div>
+      <div class="community-info">
+        <div class="community-name">YouTube</div>
+        <div class="community-desc">Video hướng dẫn sử dụng và demo tính năng</div>
+      </div>
+      <span class="community-arrow">→</span>
+    </a>
+
+    <a class="community-link" href="mailto:nguyendinhdungqd@gmail.com">
+      <div class="community-icon">✉️</div>
+      <div class="community-info">
+        <div class="community-name">Email</div>
+        <div class="community-desc">nguyendinhdungqd@gmail.com — báo lỗi hoặc góp ý</div>
+      </div>
+      <span class="community-arrow">→</span>
+    </a>
+
+  </div>
+
+  <!-- Support cards -->
+  <div class="section-title">📚 Tài nguyên</div>
+  <div class="support-grid">
+    <a class="support-card" href="user-guide.html" target="_blank">
+      <div class="support-card-icon">📖</div>
+      <div class="support-card-title">User Guide</div>
+      <div class="support-card-desc">Hướng dẫn sử dụng đầy đủ cho tất cả 4 tab</div>
+    </a>
+    <a class="support-card" href="privacy.html" target="_blank">
+      <div class="support-card-icon">🔒</div>
+      <div class="support-card-title">Privacy Policy</div>
+      <div class="support-card-desc">Chính sách quyền riêng tư của extension</div>
+    </a>
+    <a class="support-card" href="https://nguyenanhdung.io.vn" target="_blank">
+      <div class="support-card-icon">🌐</div>
+      <div class="support-card-title">Website</div>
+      <div class="support-card-desc">nguyenanhdung.io.vn</div>
+    </a>
+    <a class="support-card" href="https://dinhdungqd.github.io/creatorflow-privacy/" target="_blank">
+      <div class="support-card-icon">📋</div>
+      <div class="support-card-title">Changelog</div>
+      <div class="support-card-desc">Lịch sử cập nhật phiên bản</div>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>© 2026 Dũng Nguyễn · <a href="https://nguyenanhdung.io.vn" target="_blank">nguyenanhdung.io.vn</a></p>
+    <p style="margin-top:6px">Made with ❤️ for AI creators</p>
+  </div>
+
+</div>
+
+<script>
+  function toggleFaq(el) {
+    el.parentElement.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
